@@ -1,0 +1,3 @@
+interface InitialData {
+    connectedUsers: string[];
+}
