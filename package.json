@@ -4,15 +4,18 @@
   "description": "Mini avalon for web",
   "main": "index.js",
   "scripts": {
-    "start": "node server",
-    "lint": "eslint '*/**/*.{js,ts,tsx}'",
-    "build": "webpack --config configuration/webpack.config",
-    "dev": "NODE_ENV=development nodemon server & webpack-dev-server --config configuration/webpack.config"
+    "start": "ts-node --project server/tsconfig.server.json ./server/index.ts",
+    "build:server": "tsc",
+    "lint": "eslint . --ext .js,.ts,.tsx",
+    "build:client": "webpack --config configuration/webpack.config",
+    "dev": "NODE_ENV=development nodemon & webpack-dev-server --config configuration/webpack.config"
   },
   "author": "Sahar Brodbeker <saharonb@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "@types/classnames": "^2.2.10",
+    "@types/express": "^4.17.8",
+    "@types/node": "^14.11.1",
     "@types/react": "^16.9.49",
     "@types/react-dom": "^16.9.8",
     "@types/socket.io": "^2.1.11",
@@ -24,7 +27,8 @@
     "pug": "^2.0.4",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.3.0",
+    "ts-node": "^9.0.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.1.1",

@@ -1,19 +1,13 @@
 const path = require('path');
 
-const paths = new function() {
-    this.root = path.resolve(__dirname, '..');
-
-    [
-        'client',
-        'dist'
-    ].forEach((dir) => {
-        this[dir] = path.join(this.root, dir);
-    });
-
-    this.template = path.join(this.client, 'index.pug');
-};
+const root = path.resolve(__dirname, '..');
 
 module.exports = {
     isDev: process.env.NODE_ENV === 'development',
-    paths
+    paths: {
+        root,
+        client: path.join(root, 'client'),
+        dist: path.join(root, 'dist'),
+        template: path.join(root, 'client', 'index.pug')
+    }
 };

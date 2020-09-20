@@ -1,6 +1,6 @@
-const session = require('../session');
+import session from '../session';
 
-const registerEvents = (socket) => {
+const registerEvents = (socket: SocketIO.Socket) => {
     socket.on('login', (username) => {
         const added = session.add(socket.id, username);
 
@@ -16,8 +16,6 @@ const registerEvents = (socket) => {
     });
 };
 
-const register = (ioLayer) => {
+export const register = (ioLayer: SocketIO.Server): void => {
     ioLayer.on('connection', registerEvents);
 };
-
-module.exports = register;

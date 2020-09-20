@@ -19,7 +19,9 @@ const plugins = isDev
 const devtool = isDev ? 'source-map' : false;
 const entry = [path.join(paths.client, 'index.tsx')];
 
-isDev && entry.push('webpack-dev-server/client?http://localhost:8080');
+if (isDev) {
+    entry.push('webpack-dev-server/client?http://localhost:8080');
+}
 
 module.exports = {
     mode: isDev ? 'development' : 'production',

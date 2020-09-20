@@ -1,10 +1,13 @@
 module.exports = {
-    parser: "@typescript-eslint/parser",
+    root: true,
+    parser: '@typescript-eslint/parser',
+    plugins: [
+        '@typescript-eslint'
+    ],
     extends: [
         'eslint:recommended',
-        'plugin:react/recommended'
+        'plugin:react/recommended',
     ],
-    root: true,
     parserOptions: {
         ecmaVersion: 2020,
         sourceType: 'module',
@@ -29,19 +32,15 @@ module.exports = {
     },
     overrides: [
         {
-            files: ['**/*.ts', '**/*.tsx'],
+            files: ['*.ts', '*.tsx'],
             extends: [
-                'plugin:@typescript-eslint/recommended'
+                'plugin:@typescript-eslint/recommended',
+                'plugin:@typescript-eslint/eslint-recommended'
             ],
             rules: {
                 '@typescript-eslint/no-unused-vars': 2,
-                '@typescript-eslint/no-explicit-any': 0
-            }
-        },
-        {
-            files: ['client/**/*.js'],
-            env: {
-                browser: true
+                '@typescript-eslint/no-explicit-any': 2,
+                '@typescript-eslint/explicit-module-boundary-types': 2,
             }
         }
     ]
