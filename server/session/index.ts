@@ -1,22 +1,11 @@
-class Connection {
-    id: string;
-    username: string;
+import User from '../../lib/User';
 
-    constructor(data: Partial<Connection>) {
-        Object.assign(this, data);
-    }
-}
-
-type ConnectionsMap = {
-    [id: string]: Connection
+type UsersMap = {
+    [id: string]: User
 };
 
-// interface Dic {
-//     [key: string]: Object[]
-// }
-
 class Session {
-    connections: ConnectionsMap;
+    connections: UsersMap;
 
     constructor() {
         this.connections = {};
@@ -39,14 +28,14 @@ class Session {
             return false;
         }
 
-        const connection = new Connection({
+        const user = new User({
             id,
             username
         });
 
-        this.connections[id] = connection;
+        this.connections[id] = user;
 
-        return true;
+        return user;
     }
 
     remove(id: string) {

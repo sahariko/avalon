@@ -1,13 +1,14 @@
 import * as React from 'react';
+import User from '../../../../lib/User';
 import Avatar from '../../../components/Avatar';
 import './style.scss';
 
 interface ConnectedUsersProps {
-    connectedUsers: User[];
+    users: User[];
 }
 
-const ConnectedUsers = ({ connectedUsers }: ConnectedUsersProps): React.ReactElement => {
-    if (!connectedUsers.length) {
+const ConnectedUsers = ({ users }: ConnectedUsersProps): React.ReactElement => {
+    if (!users.length) {
         return (
             <div className="no-one">
                 אף אחד 🤷‍♂
@@ -17,7 +18,7 @@ const ConnectedUsers = ({ connectedUsers }: ConnectedUsersProps): React.ReactEle
 
     return (
         <ul className="connected-users flex-center">
-            {connectedUsers.map(({ username }) => (
+            {users.map(({ username }) => (
                 <li key={username} className="flex-center">
                     <Avatar username={username}/>
                     <span className="username">

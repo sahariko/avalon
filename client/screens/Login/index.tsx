@@ -1,13 +1,14 @@
 import * as React from 'react';
 import cn from 'classnames';
-import { login, onLoginFailure, onLoginSuccess } from '../../events';
+import User from '../../../lib/User';
+import { login, subscribe, EVENTS } from '../../events';
 import ConnectedUsers from './ConnectedUsers';
 import { WARNINGS } from './constants';
 import './style.scss';
 
 type LoginProps = {
     onLogin: (username: string) => void;
-    connectedUsers: User[];
+    users: User[];
 }
 
 type LoginState = {
@@ -22,26 +23,22 @@ class Login extends React.Component<LoginProps, LoginState> {
     }
 
     componentDidMount(): void {
-        onLoginFailure(
-            () => {
-                this.setState({
-                    warning: WARNINGS.USERNAME_EXISTS
-                });
-            }
-        );
+        subscribe(EVENTS.LoginFailed, () => {
+            this.setState({
+                warning: WARNINGS.USERNAME_EXISTS
+            });
+        });
 
-        onLoginSuccess(
-            () => {
-                const {
-                    username
-                } = this.state;
-                const {
-                    onLogin
-                } = this.props;
+        subscribe(EVENTS.LoginSuccess, () => {
+            const {
+                username
+            } = this.state;
+            const {
+                onLogin
+            } = this.props;
 
-                onLogin(username);
-            }
-        );
+            onLogin(username);
+        });
     }
 
     handleLogin = (e: React.FormEvent): void => {
@@ -72,7 +69,7 @@ class Login extends React.Component<LoginProps, LoginState> {
             warning
         } = this.state;
         const {
-            connectedUsers
+            users
         } = this.props;
 
         const inputClasses = cn({
@@ -99,7 +96,7 @@ class Login extends React.Component<LoginProps, LoginState> {
                     )}
                 </form>
                 <h2>מי כבר בפנים</h2>
-                <ConnectedUsers connectedUsers={connectedUsers}/>
+                <ConnectedUsers users={users}/>
             </section>
         );
     }

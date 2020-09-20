@@ -14,7 +14,7 @@ export const login = (username: string): void => {
     socket.emit('login', username);
 };
 
-export const subscribe = (event: string, callback: () => any): void => { // eslint-disable-line @typescript-eslint/no-explicit-any
+export const subscribe = (event: string, callback: (...args: any[]) => any): void => { // eslint-disable-line @typescript-eslint/no-explicit-any
     const subscription = () => {
         socket.on(event, callback);
     };
@@ -26,10 +26,8 @@ export const subscribe = (event: string, callback: () => any): void => { // esli
     }
 };
 
-export const onLoginFailure = (callback: () => void): void => {
-    subscribe('loginFailed', callback);
-};
-
-export const onLoginSuccess = (callback: () => void): void => {
-    subscribe('loginSuccess', callback);
-};
+export enum EVENTS {
+    UserLoggedIn = 'userLoggedIn',
+    LoginFailed = 'loginFailed',
+    LoginSuccess = 'loginSuccess',
+}
