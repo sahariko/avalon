@@ -7,15 +7,11 @@ html(lang='en')
     link(
       href='https://fonts.googleapis.com/css2?family=Miriam+Libre:wght@400;700&family=Rubik:wght@300;400;500;600&display=swap' rel='stylesheet'
     )
-    if !public_path
-      link(
-        href='/render.css'
-        rel='stylesheet'
-      )
     title Avalon
   body
     #app
     script.
       initialData = !{JSON.stringify(initial_data)}
-    script(src=public_path + '/index.tsx')
+    script(src=public_path + '/vendors.js')
+    script(src=public_path + '/bundle.js')
 

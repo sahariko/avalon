@@ -1,14 +1,17 @@
 import * as React from 'react';
 import cn from 'classnames';
+import { login } from '../../events';
+import ConnectedUsers from './ConnectedUsers';
 import './style.scss';
 
 const WARNING_MESSAGE = 'אההה אתה חייב להכניס שם';
 
-interface Props {
+interface LoginProps {
     onLogin: (username: string) => void;
+    connectedUsers: User[];
 }
 
-const Login = ({ onLogin }: Props): React.ReactElement => {
+const Login = ({ onLogin, connectedUsers }: LoginProps): React.ReactElement => {
     const [warning, setWarning] = React.useState(null);
     const [username, setUsername] = React.useState('');
 
@@ -21,6 +24,7 @@ const Login = ({ onLogin }: Props): React.ReactElement => {
         }
 
         onLogin(username);
+        login(username);
     };
 
     const handleInput = (e: React.ChangeEvent) => {
@@ -52,6 +56,8 @@ const Login = ({ onLogin }: Props): React.ReactElement => {
                     </div>
                 )}
             </form>
+            <h2>מי כבר בפנים</h2>
+            <ConnectedUsers connectedUsers={connectedUsers}/>
         </section>
     );
 };

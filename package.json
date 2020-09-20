@@ -5,10 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node server",
-    "start:dev": "nodemon server",
     "lint": "eslint '*/**/*.{js,ts,tsx}'",
-    "build": "parcel build client/index.pug --no-content-hash && bin/clean_dist_files.js",
-    "dev": "parcel client/index.pug --no-cache"
+    "build": "webpack --config configuration/webpack.config",
+    "dev": "NODE_ENV=development nodemon server & webpack-dev-server --config configuration/webpack.config"
   },
   "author": "Sahar Brodbeker <saharonb@gmail.com>",
   "license": "ISC",
@@ -16,23 +15,35 @@
     "@types/classnames": "^2.2.10",
     "@types/react": "^16.9.49",
     "@types/react-dom": "^16.9.8",
+    "@types/socket.io": "^2.1.11",
+    "@types/socket.io-client": "^1.4.33",
     "classnames": "^2.2.6",
     "express": "^4.17.1",
     "lodash": "^4.17.15",
     "prop-types": "^15.7.2",
     "pug": "^2.0.4",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react-dom": "^16.12.0",
+    "socket.io": "^2.3.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.1.1",
     "@typescript-eslint/parser": "^4.1.1",
+    "css-loader": "^4.3.0",
     "eslint": "^6.8.0",
+    "eslint-loader": "^4.0.2",
     "eslint-plugin-react": "^7.18.0",
     "faker": "^4.1.0",
-    "parcel-bundler": "^1.12.4",
-    "sass": "^1.26.11",
-    "typescript": "^4.0.3"
+    "file-loader": "^6.1.0",
+    "hard-source-webpack-plugin": "^0.13.1",
+    "node-sass": "^4.14.1",
+    "sass-loader": "^10.0.2",
+    "style-loader": "^1.2.1",
+    "ts-loader": "^8.0.4",
+    "typescript": "^4.0.3",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
   },
   "browserslist": [
     "last 2 Firefox versions",
