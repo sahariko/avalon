@@ -7,8 +7,6 @@ import './style.scss';
 export const Avalon = ({ connectedUsers }: InitialData): React.ReactElement => {
     const [user, setUser] = React.useState('');
 
-    console.log(connectedUsers);
-
     React.useEffect(() => {
         init();
     }, []);

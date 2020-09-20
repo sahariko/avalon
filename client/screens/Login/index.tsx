@@ -1,65 +1,108 @@
 import * as React from 'react';
 import cn from 'classnames';
-import { login } from '../../events';
+import { login, onLoginFailure, onLoginSuccess } from '../../events';
 import ConnectedUsers from './ConnectedUsers';
+import { WARNINGS } from './constants';
 import './style.scss';
 
-const WARNING_MESSAGE = 'אההה אתה חייב להכניס שם';
-
-interface LoginProps {
+type LoginProps = {
     onLogin: (username: string) => void;
     connectedUsers: User[];
 }
 
-const Login = ({ onLogin, connectedUsers }: LoginProps): React.ReactElement => {
-    const [warning, setWarning] = React.useState(null);
-    const [username, setUsername] = React.useState('');
+type LoginState = {
+    warning: string;
+    username: string;
+}
 
-    const handleLogin = (e: React.FormEvent) => {
+class Login extends React.Component<LoginProps, LoginState> {
+    state: LoginState = {
+        warning: null,
+        username: ''
+    }
+
+    componentDidMount(): void {
+        onLoginFailure(
+            () => {
+                this.setState({
+                    warning: WARNINGS.USERNAME_EXISTS
+                });
+            }
+        );
+
+        onLoginSuccess(
+            () => {
+                const {
+                    username
+                } = this.state;
+                const {
+                    onLogin
+                } = this.props;
+
+                onLogin(username);
+            }
+        );
+    }
+
+    handleLogin = (e: React.FormEvent): void => {
+        const { username } = this.state;
         e.preventDefault();
 
         if (!username) {
-            setWarning(WARNING_MESSAGE);
+            this.setState({
+                warning: WARNINGS.NO_USERNAME
+            });
             return;
         }
 
-        onLogin(username);
         login(username);
     };
 
-    const handleInput = (e: React.ChangeEvent) => {
+    handleInput = (e: React.ChangeEvent): void => {
         const element = e.target as HTMLInputElement;
 
-        setUsername(element.value);
+        this.setState({
+            username: element.value
+        });
     };
 
-    const inputClasses = cn({
-        'has-warning': !!warning && !username
-    });
+    render(): React.ReactElement {
+        const {
+            username,
+            warning
+        } = this.state;
+        const {
+            connectedUsers
+        } = this.props;
 
-    return (
-        <section className="screen login-screen flex-center">
-            <h2>מי אתה?</h2>
-            <form className="flex-center"
-                onSubmit={handleLogin}>
-                <input
-                    type="text"
-                    placeholder="אני בנון!"
-                    value={username}
-                    onChange={handleInput}
-                    className={inputClasses}
-                />
-                <button className="primary">הכנס</button>
-                { warning && (
-                    <div className="warning-message">
-                        { warning }
-                    </div>
-                )}
-            </form>
-            <h2>מי כבר בפנים</h2>
-            <ConnectedUsers connectedUsers={connectedUsers}/>
-        </section>
-    );
-};
+        const inputClasses = cn({
+            'has-warning': !!warning && !username
+        });
+
+        return (
+            <section className="screen login-screen flex-center">
+                <h2>מי אתה?</h2>
+                <form className="flex-center"
+                    onSubmit={this.handleLogin}>
+                    <input
+                        type="text"
+                        placeholder="אני בנון!"
+                        value={username}
+                        onChange={this.handleInput}
+                        className={inputClasses}
+                    />
+                    <button className="primary">הכנס</button>
+                    { warning && (
+                        <div className="warning-message">
+                            { warning }
+                        </div>
+                    )}
+                </form>
+                <h2>מי כבר בפנים</h2>
+                <ConnectedUsers connectedUsers={connectedUsers}/>
+            </section>
+        );
+    }
+}
 
 export default Login;

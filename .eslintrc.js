@@ -35,16 +35,7 @@ module.exports = {
             ],
             rules: {
                 '@typescript-eslint/no-unused-vars': 2,
-                // 'no-console': 0,
-                // 'no-var': 2,
-                // 'prefer-const': 2,
-                semi: 2,
-                // quotes: [2, 'single']
-            }
-        },
-        {
-            files: ['server/**/*.js', 'bin/**/*.js'],
-            env: {
+                '@typescript-eslint/no-explicit-any': 0
             }
         },
         {

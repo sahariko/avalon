@@ -2,7 +2,13 @@ const session = require('../session');
 
 const registerEvents = (socket) => {
     socket.on('login', (username) => {
-        session.add(socket.id, username);
+        const added = session.add(socket.id, username);
+
+        if (!added) {
+            socket.emit('loginFailed');
+        } else {
+            socket.emit('loginSuccess');
+        }
     });
 
     socket.on('disconnect', () => {
