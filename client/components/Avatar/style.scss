@@ -1,0 +1,33 @@
+@import '../../assets/styles/colors';
+
+$avatar_size: 50px;
+$colors: (
+    $red: white,
+    $yellow: #8f8100,
+    $green: white,
+    $blue: white,
+    $pink: white,
+    $orange: white,
+    $teal: white,
+    $purple: white,
+    $brown: white,
+    $violet: white,
+);
+$i: 0;
+
+.avatar {
+    display: inline-flex;
+    background: grey;
+    height: $avatar_size;
+    width: $avatar_size;
+    border-radius: 50%;
+
+    @each $bg_color, $font_color in $colors {
+        $i: $i + 1;
+
+        &.color-#{$i} {
+            background: $bg_color;
+            color: $font_color;
+        }
+    }
+}

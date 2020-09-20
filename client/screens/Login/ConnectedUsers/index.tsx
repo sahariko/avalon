@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Avatar from '../../../components/Avatar';
 import './style.scss';
 
 interface ConnectedUsersProps {
@@ -18,7 +19,7 @@ const ConnectedUsers = ({ connectedUsers }: ConnectedUsersProps): React.ReactEle
         <ul className="connected-users flex-center">
             {connectedUsers.map(({ username }) => (
                 <li key={username} className="flex-center">
-                    <span className="avatar"/>
+                    <Avatar username={username}/>
                     <span className="username">
                         { username }
                     </span>

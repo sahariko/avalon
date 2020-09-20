@@ -35,4 +35,14 @@ class Session {
 
 const session = new Session();
 
+session.add(1, 'Benun');
+session.add(2, 'שם ממש ממש ממש ממש ארוך');
+session.add(3, 'פיתוש');
+session.add(4, 'אורי');
+session.add(5, 'אורי');
+session.add(6, 'אורי');
+session.add(7, 'אורי');
+session.add(8, 'אורי');
+session.add(9, 'אורי');
+
 module.exports = session;
