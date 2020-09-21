@@ -4,7 +4,7 @@ import { StoreState } from '../../store';
 import UsersList from './UsersList';
 
 const ConnectedUsers = (): React.ReactElement => {
-    const users = useSelector(({ users }: StoreState) => users);
+    const users = useSelector(({ users }: StoreState) => Object.values(users));
 
     return (
         <div className="flex-center">

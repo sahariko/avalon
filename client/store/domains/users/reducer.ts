@@ -1,6 +1,6 @@
 import { Actions, UsersActionTypes, UsersReducerState } from './types';
 
-const DEFAULT_STATE: UsersReducerState = [];
+const DEFAULT_STATE: UsersReducerState = {};
 
 const reducer = (
     state = DEFAULT_STATE,
@@ -8,16 +8,16 @@ const reducer = (
 ): UsersReducerState => {
     switch (action.type) {
         case Actions.SetUsers:
-            return [...action.users];
+            return {...action.users};
         case Actions.AddUser:
-            return [
+            return {
                 ...state,
-                action.user
-            ];
+                [action.user.id]: action.user
+            };
         case Actions.RemoveUser: {
-            const users = state.filter(({ username }) => (
-                username !== action.user.username
-            ));
+            const users = {...state};
+
+            delete users[action.user.id];
 
             return users;
         }

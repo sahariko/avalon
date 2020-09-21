@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import ConnectedUsers from '../../components/ConnectedUsers';
-import { StoreState } from '../../store';
+import { getUserData } from '../../store/domains/users/selectors';
 import './style.scss';
 
 const Lobby = (): React.ReactElement => {
-    const user = useSelector(({ user }: StoreState) => user);
+    const user = useSelector(getUserData);
 
     return (
         <section className="screen lobby-screen">

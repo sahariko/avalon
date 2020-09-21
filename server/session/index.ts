@@ -12,11 +12,11 @@ class Session {
     }
 
     get users() {
-        return Object.values(this.connections);
+        return this.connections;
     }
 
     userExists(username: string) {
-        return this.users.some((user) => (
+        return Object.values(this.users).some((user) => (
             user.username === username
         ));
     }
@@ -46,6 +46,7 @@ class Session {
 
 const session = new Session();
 
+// TEMP - Remove
 session.add('1', 'Benun');
 session.add('2', 'שם ממש ממש ממש ממש ארוך');
 session.add('3', 'פיתוש');
