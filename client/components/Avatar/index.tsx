@@ -1,5 +1,6 @@
 import * as React from 'react';
 import flagIcon from '../../assets/icons/flag.svg';
+import Icon from '../Icon';
 import './style.scss';
 
 interface AvatarProps {
@@ -18,7 +19,7 @@ const Avatar = ({
     return (
         <span className={`avatar flex-center color-${colorIndex}`}>
             { initial }
-            { showFlag && <img src={flagIcon}/> }
+            { showFlag && <Icon size={25}>{flagIcon}</Icon> }
         </span>
     );
 };

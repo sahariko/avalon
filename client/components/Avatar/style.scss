@@ -23,8 +23,7 @@ $i: 0;
     width: $avatar_size;
     border-radius: 50%;
 
-    img {
-        width: 25px;
+    .icon {
         position: absolute;
         top: -19px;
         left: 22px;

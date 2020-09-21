@@ -1,3 +1,13 @@
-.login-screen {
+.lobby-screen {
+    .start-game {
+        margin-bottom: 50px;
 
+        .info-block {
+            margin-bottom: 25px;
+        }
+
+        button {
+            font-weight: 500;
+        }
+    }
 }

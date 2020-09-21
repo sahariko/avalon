@@ -1,0 +1,15 @@
+@import '../../assets/styles/colors';
+
+.info-block {
+    flex-direction: row;
+    width: 100%;
+    padding: 25px;
+    background: lighten($blue, 45%);
+    border-radius: 4px;
+    color: darken($blue, 30%);
+
+    .icon {
+        margin-left: 10px;
+        fill: darken($blue, 30%);
+    }
+}

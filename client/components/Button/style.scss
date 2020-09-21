@@ -1,0 +1,40 @@
+@import '../../assets/styles/colors';
+
+@mixin colorButton($color_name, $bg_color, $font_color: white) {
+    &.button-color-#{$color_name} {
+        background: $bg_color;
+        color: $font_color;
+
+        &:hover {
+            background: lighten($bg_color, 7.5%);
+        }
+
+        &:active {
+            background: darken($bg_color, 7.5%);
+        }
+    }
+}
+
+button {
+    padding: 10px 15px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    background: lighten($grey, 33%);
+    transition: .3s;
+
+    &:hover {
+        background: lighten($grey, 38%);
+    }
+
+    &:active {
+        background: lighten($grey, 28%);
+    }
+
+    &.button-size-large {
+        font-size: 20px;
+    }
+
+    @include colorButton(pink, $pink);
+    @include colorButton(green, $green);
+}
