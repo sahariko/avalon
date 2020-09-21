@@ -32,7 +32,7 @@ module.exports = {
         publicPath: 'http://localhost:8080/dist/'
     },
     resolve: {
-        extensions: [ '.tsx', '.ts', '.js' ],
+        extensions: [ '.tsx', '.ts', '.js' ]
     },
     module: {
         rules: [
@@ -49,19 +49,23 @@ module.exports = {
                 use: [
                     'style-loader',
                     'css-loader',
-                    'sass-loader',
+                    'sass-loader'
                 ]
             },
             {
-                test: /\.(png|svg|jpg|gif)$/,
+                test: /\.(png|jpg|gif)$/,
                 use: [
-                    'file-loader',
+                    'file-loader'
                 ]
+            },
+            {
+                test: /\.svg$/,
+                loader: 'svg-inline-loader'
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/,
                 use: [
-                    'file-loader',
+                    'file-loader'
                 ]
             }
         ]
@@ -81,7 +85,7 @@ module.exports = {
                 vendors: {
                     test: /[\\/]node_modules[\\/]/,
                     filename: 'vendors.js'
-                },
+                }
             }
         }
     },

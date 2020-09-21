@@ -19,33 +19,3 @@ input {
         border-color: $red;
     }
 }
-
-button {
-    padding: 10px;
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
-    background: lighten($grey, 33%);
-    transition: .3s;
-
-    &:hover {
-        background: lighten($grey, 38%);
-    }
-
-    &:active {
-        background: lighten($grey, 28%);
-    }
-
-    &.primary {
-        background: $pink;
-        color: white;
-
-        &:hover {
-            background: lighten($pink, 7.5%);
-        }
-
-        &:active {
-            background: darken($pink, 7.5%);
-        }
-    }
-}
