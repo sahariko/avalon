@@ -1,4 +1,5 @@
 import session from '../session';
+import * as events from '../../lib/events';
 
 let _ioLayer: SocketIO.Server;
 
@@ -6,27 +7,27 @@ const disconnectUser = (socket: SocketIO.Socket) =>
 {
     const user = session.get(socket.id);
 
-    _ioLayer.emit('userLoggedOut', user);
+    _ioLayer.emit(events.Server.UserLoggedOut, user);
     session.remove(socket.id);
 };
 
 const registerEvents = (socket: SocketIO.Socket) => {
-    socket.on('login', (username) => {
-        const user = session.add(socket.id, username);
+    socket.on(events.Client.Login, (username) => {
+        const {warning, user} = session.add(socket.id, username);
 
         if (!user) {
-            socket.emit('loginFailed');
+            socket.emit(events.Server.LoginFailed, warning);
         } else {
-            socket.emit('loginSuccess', user);
-            _ioLayer.emit('userLoggedIn', user);
+            socket.emit(events.Server.LoginSuccess, user);
+            _ioLayer.emit(events.Server.UserLoggedIn, user);
         }
     });
-
+    // Native socketIO event
     socket.on('disconnect', () => {
         disconnectUser(socket);
     });
 
-    socket.on('userDisconnected', () => {
+    socket.on(events.Client.UserDisconnected, () => {
         disconnectUser(socket);
     });
 };
