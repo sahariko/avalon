@@ -1,17 +1,15 @@
 import * as React from 'react';
-import { Provider } from 'react-redux';
-import { createStore } from '../store';
-import { InitialData } from '../types';
+import { useSelector } from 'react-redux';
+import { StoreState } from '../store';
 import { init, send } from '../events';
 import LoginScreen from '../screens/Login';
 import LobbyScreen from '../screens/Lobby';
 import './style.scss';
 
-export const Avalon = ({ connectedUsers }: InitialData): React.ReactElement => {
-    const [user, setUser] = React.useState('');
-    const store = createStore({
-        users: connectedUsers
-    });
+export const Avalon = (): React.ReactElement => {
+    const user = useSelector(({ user }: StoreState) => user);
+
+    console.log('user:', user);
 
     React.useEffect(() => {
         init();
@@ -22,16 +20,16 @@ export const Avalon = ({ connectedUsers }: InitialData): React.ReactElement => {
     }, []);
 
     return (
-        <Provider store={store}>
+        <>
             <header>
                 <h1>אבאלון</h1>
             </header>
             {!user && (
-                <LoginScreen onLogin={setUser}/>
+                <LoginScreen/>
             )}
             {user && (
-                <LobbyScreen user={user}/>
+                <LobbyScreen/>
             )}
-        </Provider>
+        </>
     );
 };

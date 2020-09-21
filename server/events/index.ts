@@ -17,7 +17,7 @@ const registerEvents = (socket: SocketIO.Socket) => {
         if (!user) {
             socket.emit('loginFailed');
         } else {
-            socket.emit('loginSuccess');
+            socket.emit('loginSuccess', user);
             _ioLayer.emit('userLoggedIn', user);
         }
     });

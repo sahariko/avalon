@@ -6,19 +6,11 @@ import UsersList from './UsersList';
 const ConnectedUsers = (): React.ReactElement => {
     const users = useSelector(({ users }: StoreState) => users);
 
-    if (!users.length) {
-        return (
-            <div className="no-one">
-                אף אחד 🤷‍♂
-            </div>
-        );
-    }
-
     return (
-        <>
+        <div className="flex-center">
             <h2>מי כבר בפנים</h2>
             <UsersList users={users}/>
-        </>
+        </div>
     );
 };
 

@@ -1,15 +1,16 @@
 import * as React from 'react';
+import { useSelector } from 'react-redux';
+import ConnectedUsers from '../../components/ConnectedUsers';
+import { StoreState } from '../../store';
 import './style.scss';
 
-interface Props {
-    user: string;
-}
-
-const Lobby = ({ user }: Props): React.ReactElement => {
+const Lobby = (): React.ReactElement => {
+    const user = useSelector(({ user }: StoreState) => user);
 
     return (
         <section className="screen lobby-screen">
-            היי { user }
+            היי { user.username }
+            <ConnectedUsers/>
         </section>
     );
 };

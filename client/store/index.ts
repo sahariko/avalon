@@ -3,9 +3,15 @@ import { devToolsEnhancer } from 'redux-devtools-extension';
 import User from '../../lib/User';
 import { subscribe, Events } from '../events';
 
+// Users domain
 import { addUser, removeUser } from './domains/users/actions';
 import users from './domains/users/reducer';
 import { UsersReducerState } from './domains/users/types';
+
+// User domain
+import { setUser } from './domains/user/actions';
+import user from './domains/user/reducer';
+import { UserReducerState } from './domains/user/types';
 
 const registerCallbacks = (store: Store) => {
     subscribe(Events.UserLoggedIn, (user: User) => {
@@ -15,14 +21,20 @@ const registerCallbacks = (store: Store) => {
     subscribe(Events.UserLoggedOut, (user: User) => {
         store.dispatch(removeUser(user));
     });
+
+    subscribe(Events.LoginSuccess, (user) => {
+        store.dispatch(setUser(user));
+    });
 };
 
 const reducers = combineReducers({
-    users
+    users,
+    user
 });
 
 export interface StoreState {
-    users: UsersReducerState
+    users: UsersReducerState;
+    user: UserReducerState;
 }
 
 export let storeInstance: Store;

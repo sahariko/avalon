@@ -5,16 +5,12 @@ import ConnectedUsers from '../../components/ConnectedUsers';
 import { Warnings } from './constants';
 import './style.scss';
 
-type LoginProps = {
-    onLogin: (username: string) => void;
-}
-
 type LoginState = {
     warning: string;
     username: string;
 }
 
-class Login extends React.Component<LoginProps, LoginState> {
+class Login extends React.Component<unknown, LoginState> {
     state: LoginState = {
         warning: null,
         username: ''
@@ -25,17 +21,6 @@ class Login extends React.Component<LoginProps, LoginState> {
             this.setState({
                 warning: Warnings.UsernameExists
             });
-        });
-
-        subscribe(Events.LoginSuccess, () => {
-            const {
-                username
-            } = this.state;
-            const {
-                onLogin
-            } = this.props;
-
-            onLogin(username);
         });
     }
 

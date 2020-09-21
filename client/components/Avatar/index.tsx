@@ -7,8 +7,6 @@ interface AvatarProps {
 }
 
 const Avatar = ({ username, colorIndex }: AvatarProps): React.ReactElement => {
-    console.log('colorIndex:', colorIndex);
-
     const initial = username.charAt(0);
 
     return (
