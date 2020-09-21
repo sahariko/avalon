@@ -1,6 +1,7 @@
 import * as React from 'react';
 import cn from 'classnames';
-import { login, subscribe, Events } from '../../events';
+import { login, subscribe } from '../../events';
+import * as events from '../../../lib/events';
 import ConnectedUsers from '../../components/ConnectedUsers';
 import { Warnings } from './constants';
 import './style.scss';
@@ -17,7 +18,7 @@ class Login extends React.Component<unknown, LoginState> {
     }
 
     componentDidMount(): void {
-        subscribe(Events.LoginFailed, () => {
+        subscribe(events.Server.LoginFailed, () => {
             this.setState({
                 warning: Warnings.UsernameExists
             });

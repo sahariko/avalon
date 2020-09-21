@@ -1,7 +1,8 @@
 import { createStore as _createStore, combineReducers, Store } from 'redux';
 import { devToolsEnhancer } from 'redux-devtools-extension';
 import User from '../../lib/User';
-import { subscribe, Events } from '../events';
+import { subscribe } from '../events';
+import * as events from '../../lib/events';
 
 // Users domain
 import { addUser, removeUser } from './domains/users/actions';
@@ -14,15 +15,15 @@ import user from './domains/user/reducer';
 import { UserReducerState } from './domains/user/types';
 
 const registerCallbacks = (store: Store) => {
-    subscribe(Events.UserLoggedIn, (user: User) => {
+    subscribe(events.Server.UserLoggedIn, (user: User) => {
         store.dispatch(addUser(user));
     });
 
-    subscribe(Events.UserLoggedOut, (user: User) => {
+    subscribe(events.Server.UserLoggedOut, (user: User) => {
         store.dispatch(removeUser(user));
     });
 
-    subscribe(Events.LoginSuccess, ({ id }) => {
+    subscribe(events.Server.LoginSuccess, ({ id }) => {
         store.dispatch(setUser(id));
     });
 };

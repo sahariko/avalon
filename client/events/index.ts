@@ -29,10 +29,3 @@ export const subscribe = (event: string, callback: (...args: any[]) => any): voi
 export const send = (eventName: string, ...args: any[]): void => { // eslint-disable-line @typescript-eslint/no-explicit-any
     socket.emit(eventName, ...args);
 };
-
-export enum Events {
-    UserLoggedIn = 'userLoggedIn',
-    UserLoggedOut = 'userLoggedOut',
-    LoginFailed = 'loginFailed',
-    LoginSuccess = 'loginSuccess',
-}
