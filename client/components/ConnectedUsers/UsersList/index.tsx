@@ -5,9 +5,10 @@ import './style.scss';
 
 interface ConnectedUsersProps {
     users: User[];
+    userId?: string;
 }
 
-const ConnectedUsers = ({ users }: ConnectedUsersProps): React.ReactElement => {
+const ConnectedUsers = ({ users, userId }: ConnectedUsersProps): React.ReactElement => {
     if (!users.length) {
         return (
             <div className="no-one">
@@ -20,7 +21,7 @@ const ConnectedUsers = ({ users }: ConnectedUsersProps): React.ReactElement => {
         <ul className="users-list flex-center">
             {users.map((user) => (
                 <li key={user.id} className="flex-center">
-                    <Avatar {...user}/>
+                    <Avatar {...user} showFlag={user.id === userId}/>
                     <span className="username">
                         { user.username }
                     </span>
