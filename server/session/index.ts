@@ -1,7 +1,6 @@
 import User from '../../lib/User';
 import { Warnings } from '../events/constants';
-import { maxUsers } from './constants';
-
+import { MAX_USERS } from './constants';
 
 type AddUserResponse = {
     warning?: string,
@@ -17,7 +16,7 @@ class Session {
     }
 
     get users() {
-        return Array.from( this.connections.values() );
+        return Array.from(this.connections.values());
     }
 
     userExists(username: string) {
@@ -33,7 +32,7 @@ class Session {
             return { warning: Warnings.UsernameExists };
         }
 
-        if (this.connections.size === maxUsers) {
+        if (this.connections.size === MAX_USERS) {
             console.error('Too many users');
 
             return { warning: Warnings.TooManyUsers };
