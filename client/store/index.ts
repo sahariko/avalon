@@ -22,8 +22,8 @@ const registerCallbacks = (store: Store) => {
         store.dispatch(removeUser(user));
     });
 
-    subscribe(Events.LoginSuccess, (user) => {
-        store.dispatch(setUser(user));
+    subscribe(Events.LoginSuccess, ({ id }) => {
+        store.dispatch(setUser(id));
     });
 };
 

@@ -1,14 +1,12 @@
-import User from '../../../../lib/User';
-
 export enum Actions {
     SetUser = 'SetUser'
 }
 
 interface SetUserAction {
     type: Actions.SetUser;
-    user: User;
+    user: string;
 }
 
 export type UserActionTypes = SetUserAction;
 
-export type UserReducerState = User;
+export type UserReducerState = string;

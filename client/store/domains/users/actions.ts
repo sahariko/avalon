@@ -1,7 +1,7 @@
 import User from '../../../../lib/User';
-import { Actions, UsersActionTypes } from './types';
+import { Actions, UsersActionTypes, UsersReducerState } from './types';
 
-export const setUsers = (users: User[]): UsersActionTypes => ({
+export const setUsers = (users: UsersReducerState): UsersActionTypes => ({
     type: Actions.SetUsers,
     users
 });

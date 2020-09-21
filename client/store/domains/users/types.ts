@@ -6,9 +6,13 @@ export enum Actions {
     RemoveUser = 'RemoveUser'
 }
 
+export type UsersReducerState = {
+    [id: string]: User
+};
+
 interface SetUsersAction {
     type: Actions.SetUsers;
-    users: User[];
+    users: UsersReducerState;
 }
 
 interface ChangeUserAction {
@@ -17,5 +21,3 @@ interface ChangeUserAction {
 }
 
 export type UsersActionTypes = SetUsersAction | ChangeUserAction;
-
-export type UsersReducerState = User[];

@@ -1,5 +1,7 @@
 import User from '../lib/User';
 
 export interface InitialData {
-    connectedUsers: User[];
+    connectedUsers: {
+        [id: string]: User
+    };
 }
