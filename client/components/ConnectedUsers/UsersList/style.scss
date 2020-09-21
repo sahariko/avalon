@@ -5,7 +5,7 @@ $user_size: 100px;
     opacity: .5;
 }
 
-.connected-users {
+.users-list {
     flex-direction: row;
     max-width: $user_size * 5;
     flex-wrap: wrap;

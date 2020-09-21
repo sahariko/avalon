@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { render } from 'react-dom';
+import { InitialData } from './types';
 
 import './assets/styles/index.scss';
 import { Avalon } from './App';

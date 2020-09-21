@@ -1,6 +1,6 @@
 import * as React from 'react';
 import User from '../../../../lib/User';
-import Avatar from '../../../components/Avatar';
+import Avatar from '../../Avatar';
 import './style.scss';
 
 interface ConnectedUsersProps {
@@ -17,12 +17,12 @@ const ConnectedUsers = ({ users }: ConnectedUsersProps): React.ReactElement => {
     }
 
     return (
-        <ul className="connected-users flex-center">
-            {users.map(({ username }) => (
-                <li key={username} className="flex-center">
-                    <Avatar username={username}/>
+        <ul className="users-list flex-center">
+            {users.map((user) => (
+                <li key={user.id} className="flex-center">
+                    <Avatar {...user}/>
                     <span className="username">
-                        { username }
+                        { user.username }
                     </span>
                 </li>
             ))}

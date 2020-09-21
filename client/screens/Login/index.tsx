@@ -1,14 +1,12 @@
 import * as React from 'react';
 import cn from 'classnames';
-import User from '../../../lib/User';
 import { login, subscribe, Events } from '../../events';
-import ConnectedUsers from './ConnectedUsers';
+import ConnectedUsers from '../../components/ConnectedUsers';
 import { Warnings } from './constants';
 import './style.scss';
 
 type LoginProps = {
     onLogin: (username: string) => void;
-    users: User[];
 }
 
 type LoginState = {
@@ -68,9 +66,6 @@ class Login extends React.Component<LoginProps, LoginState> {
             username,
             warning
         } = this.state;
-        const {
-            users
-        } = this.props;
 
         const inputClasses = cn({
             'has-warning': !!warning && !username
@@ -95,8 +90,7 @@ class Login extends React.Component<LoginProps, LoginState> {
                         </div>
                     )}
                 </form>
-                <h2>מי כבר בפנים</h2>
-                <ConnectedUsers users={users}/>
+                <ConnectedUsers/>
             </section>
         );
     }

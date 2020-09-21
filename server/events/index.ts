@@ -4,7 +4,7 @@ let _ioLayer: SocketIO.Server;
 
 const disconnectUser = (socket: SocketIO.Socket) =>
 {
-    const user = session.connections[socket.id];
+    const user = session.get(socket.id);
 
     _ioLayer.emit('userLoggedOut', user);
     session.remove(socket.id);

@@ -1,28 +1,20 @@
 import * as React from 'react';
-import User from '../../lib/User';
-import { init, subscribe, send, Events } from '../events';
+import { Provider } from 'react-redux';
+import { createStore } from '../store';
+import { InitialData } from '../types';
+import { init, send } from '../events';
 import LoginScreen from '../screens/Login';
 import LobbyScreen from '../screens/Lobby';
 import './style.scss';
 
 export const Avalon = ({ connectedUsers }: InitialData): React.ReactElement => {
-    const [users, setUsers] = React.useState(connectedUsers);
     const [user, setUser] = React.useState('');
+    const store = createStore({
+        users: connectedUsers
+    });
 
     React.useEffect(() => {
         init();
-        subscribe(Events.UserLoggedIn, (user: User) => {
-            setUsers([
-                ...users,
-                user
-            ]);
-        });
-
-        subscribe(Events.UserLoggedOut, (user: User) => {
-            const newUsers = users.filter(({ username }) => username !== user.username);
-
-            setUsers(newUsers);
-        });
 
         window.addEventListener('beforeunload', () => {
             send('userDisconnected');
@@ -30,17 +22,16 @@ export const Avalon = ({ connectedUsers }: InitialData): React.ReactElement => {
     }, []);
 
     return (
-        <>
+        <Provider store={store}>
             <header>
                 <h1>אבאלון</h1>
             </header>
             {!user && (
-                <LoginScreen onLogin={setUser}
-                    users={users}/>
+                <LoginScreen onLogin={setUser}/>
             )}
             {user && (
                 <LobbyScreen user={user}/>
             )}
-        </>
+        </Provider>
     );
 };

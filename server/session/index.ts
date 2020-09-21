@@ -5,7 +5,7 @@ type UsersMap = {
 };
 
 class Session {
-    connections: UsersMap;
+    private connections: UsersMap;
 
     constructor() {
         this.connections = {};
@@ -28,10 +28,7 @@ class Session {
             return false;
         }
 
-        const user = new User({
-            id,
-            username
-        });
+        const user = new User(id, username);
 
         this.connections[id] = user;
 
@@ -40,6 +37,10 @@ class Session {
 
     remove(id: string) {
         delete this.connections[id];
+    }
+
+    get(id: string) {
+        return this.connections[id];
     }
 }
 

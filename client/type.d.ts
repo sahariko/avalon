@@ -1,3 +1,0 @@
-interface InitialData {
-    connectedUsers: User[];
-}

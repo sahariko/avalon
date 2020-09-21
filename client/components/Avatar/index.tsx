@@ -1,22 +1,13 @@
 import * as React from 'react';
 import './style.scss';
 
-const COLOR_AMOUNT = 10;
-let _colorIndex = 0;
-
-const getColorIndex = () => {
-    const index = (_colorIndex % COLOR_AMOUNT) + 1;
-    _colorIndex++;
-
-    return index;
-};
-
 interface AvatarProps {
     username: string;
+    colorIndex: number;
 }
 
-const Avatar = ({ username }: AvatarProps): React.ReactElement => {
-    const [colorIndex] = React.useState(getColorIndex());
+const Avatar = ({ username, colorIndex }: AvatarProps): React.ReactElement => {
+    console.log('colorIndex:', colorIndex);
 
     const initial = username.charAt(0);
 
