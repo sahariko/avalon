@@ -2,6 +2,14 @@ import session from '../session';
 
 let _ioLayer: SocketIO.Server;
 
+const disconnectUser = (socket: SocketIO.Socket) =>
+{
+    const user = session.connections[socket.id];
+
+    _ioLayer.emit('userLoggedOut', user);
+    session.remove(socket.id);
+};
+
 const registerEvents = (socket: SocketIO.Socket) => {
     socket.on('login', (username) => {
         const user = session.add(socket.id, username);
@@ -15,7 +23,11 @@ const registerEvents = (socket: SocketIO.Socket) => {
     });
 
     socket.on('disconnect', () => {
-        session.remove(socket.id);
+        disconnectUser(socket);
+    });
+
+    socket.on('userDisconnected', () => {
+        disconnectUser(socket);
     });
 };
 

@@ -1,4 +1,4 @@
-export const WARNINGS = {
-    NO_USERNAME: 'אההה אתה חייב להכניס שם',
-    USERNAME_EXISTS: 'מישהו כבר מחובר עם השם הזה, תנסה להיות יותר יצירתי'
-};
+export enum Warnings {
+    NoUsername = 'אההה אתה חייב להכניס שם',
+    UsernameExists = 'מישהו כבר מחובר עם השם הזה, תנסה להיות יותר יצירתי'
+}

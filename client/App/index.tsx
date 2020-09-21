@@ -1,6 +1,6 @@
 import * as React from 'react';
 import User from '../../lib/User';
-import { init, subscribe, EVENTS } from '../events';
+import { init, subscribe, send, Events } from '../events';
 import LoginScreen from '../screens/Login';
 import LobbyScreen from '../screens/Lobby';
 import './style.scss';
@@ -11,13 +11,22 @@ export const Avalon = ({ connectedUsers }: InitialData): React.ReactElement => {
 
     React.useEffect(() => {
         init();
-        subscribe(EVENTS.UserLoggedIn, (user: User) => {
-            console.log('user:', user);
+        subscribe(Events.UserLoggedIn, (user: User) => {
             setUsers([
                 ...users,
                 user
             ]);
         });
+
+        subscribe(Events.UserLoggedOut, (user: User) => {
+            const newUsers = users.filter(({ username }) => username !== user.username);
+
+            setUsers(newUsers);
+        });
+
+        window.addEventListener('beforeunload', () => {
+            send('userDisconnected');
+         });
     }, []);
 
     return (

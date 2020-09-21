@@ -1,9 +1,9 @@
 import * as React from 'react';
 import cn from 'classnames';
 import User from '../../../lib/User';
-import { login, subscribe, EVENTS } from '../../events';
+import { login, subscribe, Events } from '../../events';
 import ConnectedUsers from './ConnectedUsers';
-import { WARNINGS } from './constants';
+import { Warnings } from './constants';
 import './style.scss';
 
 type LoginProps = {
@@ -23,13 +23,13 @@ class Login extends React.Component<LoginProps, LoginState> {
     }
 
     componentDidMount(): void {
-        subscribe(EVENTS.LoginFailed, () => {
+        subscribe(Events.LoginFailed, () => {
             this.setState({
-                warning: WARNINGS.USERNAME_EXISTS
+                warning: Warnings.UsernameExists
             });
         });
 
-        subscribe(EVENTS.LoginSuccess, () => {
+        subscribe(Events.LoginSuccess, () => {
             const {
                 username
             } = this.state;
@@ -47,7 +47,7 @@ class Login extends React.Component<LoginProps, LoginState> {
 
         if (!username) {
             this.setState({
-                warning: WARNINGS.NO_USERNAME
+                warning: Warnings.NoUsername
             });
             return;
         }
