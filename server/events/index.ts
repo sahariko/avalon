@@ -13,10 +13,10 @@ const disconnectUser = (socket: SocketIO.Socket) =>
 
 const registerEvents = (socket: SocketIO.Socket) => {
     socket.on(events.Client.Login, (username) => {
-        const user = session.add(socket.id, username);
+        const {warning, user} = session.add(socket.id, username);
 
         if (!user) {
-            socket.emit(events.Server.LoginFailed);
+            socket.emit(events.Server.LoginFailed, warning);
         } else {
             socket.emit(events.Server.LoginSuccess, user);
             _ioLayer.emit(events.Server.UserLoggedIn, user);

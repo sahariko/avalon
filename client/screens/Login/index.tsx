@@ -18,9 +18,9 @@ class Login extends React.Component<unknown, LoginState> {
     }
 
     componentDidMount(): void {
-        subscribe(events.Server.LoginFailed, () => {
+        subscribe(events.Server.LoginFailed, (warning) => {
             this.setState({
-                warning: Warnings.UsernameExists
+                warning
             });
         });
     }

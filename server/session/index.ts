@@ -1,18 +1,23 @@
 import User from '../../lib/User';
+import { Warnings } from '../events/constants';
+import { maxUsers } from './constants';
 
-type UsersMap = {
-    [id: string]: User
-};
+
+type AddUserResponse = {
+    warning?: string,
+    user?: User
+}
+
 
 class Session {
-    private connections: UsersMap;
+    private connections: Map<string, User>;
 
     constructor() {
-        this.connections = {};
+        this.connections = new Map();
     }
 
     get users() {
-        return this.connections;
+        return Array.from( this.connections.values() );
     }
 
     userExists(username: string) {
@@ -21,26 +26,32 @@ class Session {
         ));
     }
 
-    add(id: string, username: string) {
+    add(id: string, username: string): AddUserResponse {
         if (this.userExists(username)) {
             console.error(`User with name ${username} already exists`);
 
-            return false;
+            return { warning: Warnings.UsernameExists };
+        }
+
+        if (this.connections.size === maxUsers) {
+            console.error('Too many users');
+
+            return { warning: Warnings.TooManyUsers };
         }
 
         const user = new User(id, username);
 
-        this.connections[id] = user;
+        this.connections.set(id, user);
 
-        return user;
+        return { user };
     }
 
     remove(id: string) {
-        delete this.connections[id];
+       this.connections.delete(id);
     }
 
     get(id: string) {
-        return this.connections[id];
+        return this.connections.get(id);
     }
 }
 
@@ -56,5 +67,6 @@ session.add('6', 'אורי3');
 session.add('7', 'אורי4');
 session.add('8', 'אורי5');
 session.add('9', 'אורי6');
+session.add('10', 'אורי7');
 
 export default session;
