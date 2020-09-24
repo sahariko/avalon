@@ -1,24 +1,47 @@
 import User from '../../lib/User';
 import { PLAYERS_TO_ROLES_MAP } from './constants';
 import Player from './Player';
-import { Aligment } from './Player/constants';
+import { Roles } from './Player/constants';
+
+const generateSpecialRolesMap = () => new Map([
+    [Roles.Good, [Roles.Merlin]]
+]);
 
 class Game {
     private started: boolean;
     private players: Player[];
 
-    private generateAligmentsList(playerAmount: number): Aligment[] {
-        const aligmentList: Aligment[] = [];
+    private generateRoleList(playerAmount: number): Roles[] {
+        const roleList: Roles[] = [];
+        const specialRoles = generateSpecialRolesMap();
 
         let { good, evil } = PLAYERS_TO_ROLES_MAP.get(playerAmount);
 
+        const generateRole = (alignment: Roles): Roles => {
+            const roles = specialRoles.get(alignment);
+
+            if (!roles || !roles.length) {
+                return alignment;
+            }
+
+            // Generate a number between 1 and the amount of players left in the alignment.
+            // If the number is exactly 1 (chance of 1 in X), make that player a special character, otherwise make them a peasant.
+
+            const random = Math.floor(Math.random() * good) + 1;
+            const allocateSpecial = random <= roles.length;
+
+            return allocateSpecial
+                ? roles.pop()
+                : alignment;
+        };
+
         const addGood = () => {
-            aligmentList.push(Aligment.Good);
+            roleList.push(generateRole(Roles.Good));
             good--;
         };
 
         const addEvil = () => {
-            aligmentList.push(Aligment.Evil);
+            roleList.push(generateRole(Roles.Evil));
             evil--;
         };
 
@@ -34,14 +57,14 @@ class Game {
             }
         }
 
-        return aligmentList;
+        return roleList;
     }
 
     private initializePlayers(users: User[]): void {
-        const aligmentList = this.generateAligmentsList(users.length);
+        const roleList = this.generateRoleList(users.length);
 
         this.players = users.map((user, index) => (
-            new Player(user, aligmentList[index])
+            new Player(user, roleList[index])
         ));
     }
 

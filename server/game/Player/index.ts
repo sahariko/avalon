@@ -1,13 +1,19 @@
 import User from '../../../lib/User';
-import { Aligment } from './constants';
+import { Roles } from './constants';
 
 class Player extends User {
-    aligment: Aligment;
+    role: Roles;
 
-    constructor(user: User, alignment: Aligment) {
+    constructor(user: User, role: Roles) {
         super(user.id, user.username);
 
-        this.aligment = alignment;
+        Object.assign(this, {
+            role
+        });
+    }
+
+    get canSeeEvil(): boolean {
+        return [Roles.Evil, Roles.Merlin].includes(this.role);
     }
 }
 

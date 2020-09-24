@@ -1,4 +1,5 @@
-export enum Aligment {
+export enum Roles {
     Good = 'good',
-    Evil = 'evil'
+    Evil = 'evil',
+    Merlin = 'Merlin'
 }
