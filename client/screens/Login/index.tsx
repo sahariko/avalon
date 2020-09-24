@@ -2,7 +2,7 @@ import * as React from 'react';
 import cn from 'classnames';
 import { login, subscribe } from '../../events';
 import * as events from '../../../lib/events';
-import { Button, ConnectedUsers } from '../../components';
+import { Button, ConnectedUsers, Warning } from '../../components';
 import { Warnings } from './constants';
 import './style.scss';
 
@@ -71,9 +71,9 @@ class Login extends React.Component<unknown, LoginState> {
                     />
                     <Button color="pink">הכנס</Button>
                     { warning && (
-                        <div className="warning-message">
+                        <Warning>
                             { warning }
-                        </div>
+                        </Warning>
                     )}
                 </form>
                 <ConnectedUsers/>
