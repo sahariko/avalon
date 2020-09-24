@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
+import { Client } from '../../../lib/events';
 import { Button, ConnectedUsers, Info, Warning } from '../../components';
+import { send } from '../../events';
 import { getUserData, getUsersAmount } from '../../store/domains/users/selectors';
 import { Warnings, MINIMUM_PLAYER_AMOUNT } from './constants';
 import './style.scss';
@@ -13,7 +15,10 @@ const Lobby = (): React.ReactElement => {
     const handleClick = () => {
         if (usersAmount < MINIMUM_PLAYER_AMOUNT) {
             setWarning(Warnings.NotEnoughUsers);
+            return;
         }
+
+        send(Client.StartGame);
     };
 
     return (

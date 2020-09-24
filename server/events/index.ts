@@ -1,3 +1,4 @@
+import game from '../game';
 import session from '../session';
 import * as events from '../../lib/events';
 
@@ -13,7 +14,7 @@ const disconnectUser = (socket: SocketIO.Socket) =>
 
 const registerEvents = (socket: SocketIO.Socket) => {
     socket.on(events.Client.Login, (username) => {
-        const {warning, user} = session.add(socket.id, username);
+        const { warning, user } = session.add(socket.id, username);
 
         if (!user) {
             socket.emit(events.Server.LoginFailed, warning);
@@ -29,6 +30,10 @@ const registerEvents = (socket: SocketIO.Socket) => {
 
     socket.on(events.Client.UserDisconnected, () => {
         disconnectUser(socket);
+    });
+
+    socket.on(events.Client.StartGame, () => {
+        game.start(session.users);
     });
 };
 
