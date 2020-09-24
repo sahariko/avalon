@@ -8,14 +8,14 @@ const reducer = (
 ): UsersReducerState => {
     switch (action.type) {
         case Actions.SetUsers:
-            return {...action.users};
+            return { ...action.users };
         case Actions.AddUser:
             return {
                 ...state,
                 [action.user.id]: action.user
             };
         case Actions.RemoveUser: {
-            const users = {...state};
+            const users = { ...state };
 
             delete users[action.user.id];
 

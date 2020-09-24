@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
-import { StoreState } from '../../store';
-import { getUserData } from '../../store/domains/users/selectors';
+import { getUserData, getUsersList } from '../../store/domains/users/selectors';
 import UsersList from './UsersList';
 
 const ConnectedUsers = (): React.ReactElement => {
-    const users = useSelector(({ users }: StoreState) => Object.values(users));
+    const users = useSelector(getUsersList);
     const { id } = useSelector(getUserData);
 
     return (

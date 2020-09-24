@@ -1,0 +1,10 @@
+@import '../../assets/styles/colors';
+
+.warning-block {
+    width: 100%;
+    background: $yellow;
+    padding: 20px;
+    border-radius: 4px;
+    text-align: center;
+    color: darken($yellow, 55%);
+}
