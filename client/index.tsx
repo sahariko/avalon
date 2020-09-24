@@ -16,7 +16,10 @@ declare global {
 if (container) {
     const store = createStore({
         users: window.initialData.connectedUsers,
-        user: '3' // TEMP - Change to null
+        user: 'פיתוש',
+        game: {
+            started: false
+        }
     });
 
     render(

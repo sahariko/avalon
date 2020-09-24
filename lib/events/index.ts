@@ -8,5 +8,6 @@ export enum Server {
     UserLoggedIn = 'UserLoggedIn',
     UserLoggedOut = 'UserLoggedOut',
     LoginFailed = 'LoginFailed',
-    LoginSuccess = 'LoginSuccess'
+    LoginSuccess = 'LoginSuccess',
+    GameStarted = 'GameStarted'
 }

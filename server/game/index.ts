@@ -17,6 +17,8 @@ class Game {
     start(users: User[]) {
         this.started = true;
         this.initializePlayers(users);
+
+        console.log('this.players:', this.players);
     }
 }
 

@@ -5,7 +5,7 @@ class Player extends User {
     role: Role;
 
     constructor(user: User, role: Role) {
-        super(user.id, user.username);
+        super(user.username);
 
         Object.assign(this, {
             role

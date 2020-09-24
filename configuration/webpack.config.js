@@ -16,7 +16,7 @@ const plugins = isDev
     ]
     : [];
 
-const devtool = isDev ? 'source-map' : false;
+const devtool = isDev ? 'eval-source-map' : false;
 const entry = [path.join(paths.client, 'index.tsx')];
 
 if (isDev) {

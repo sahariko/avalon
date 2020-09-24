@@ -9,13 +9,11 @@ const getColorIndex = () => {
 };
 
 class User {
-    id: string;
     username: string;
     colorIndex: number;
 
-    constructor(id: string, username: string) {
+    constructor(username: string) {
         Object.assign(this, {
-            id,
             username,
             colorIndex: getColorIndex()
         });

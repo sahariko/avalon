@@ -7,12 +7,14 @@ interface AvatarProps {
     username: string;
     colorIndex: number;
     showFlag?: boolean;
+    showHorns?: boolean;
 }
 
 const Avatar = ({
     username,
     colorIndex,
-    showFlag
+    showFlag = false,
+    showHorns = false
 }: AvatarProps): React.ReactElement => {
     const initial = username.charAt(0);
 
@@ -20,6 +22,7 @@ const Avatar = ({
         <span className={`avatar flex-center color-${colorIndex}`}>
             { initial }
             { showFlag && <Icon size={25}>{flagIcon}</Icon> }
+            { showHorns && <span>eeeviiiiillll</span> }
         </span>
     );
 };

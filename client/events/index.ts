@@ -1,4 +1,5 @@
 import * as io from 'socket.io-client';
+import * as events from '../../lib/events';
 
 let socket: SocketIOClient.Socket;
 const onInitCallbacks: Array<() => any> = []; // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -11,7 +12,7 @@ export const init = (): void => {
 };
 
 export const login = (username: string): void => {
-    socket.emit('login', username);
+    socket.emit(events.Client.Login, username);
 };
 
 export const subscribe = (event: string, callback: (...args: any[]) => any): void => { // eslint-disable-line @typescript-eslint/no-explicit-any

@@ -2,27 +2,31 @@ import game from '../game';
 import session from '../session';
 import * as events from '../../lib/events';
 
-let _ioLayer: SocketIO.Server;
+let ioLayer: SocketIO.Server;
 
 const disconnectUser = (socket: SocketIO.Socket) =>
 {
-    const user = session.get(socket.id);
+    const connection = session.get(socket.id);
 
-    _ioLayer.emit(events.Server.UserLoggedOut, user);
     session.remove(socket.id);
+
+    if (connection) {
+        ioLayer.emit(events.Server.UserLoggedOut, connection.toObject());
+    }
 };
 
 const registerEvents = (socket: SocketIO.Socket) => {
     socket.on(events.Client.Login, (username) => {
-        const { warning, user } = session.add(socket.id, username);
+        const { warning, user } = session.add(username, socket);
 
         if (!user) {
             socket.emit(events.Server.LoginFailed, warning);
         } else {
             socket.emit(events.Server.LoginSuccess, user);
-            _ioLayer.emit(events.Server.UserLoggedIn, user);
+            ioLayer.emit(events.Server.UserLoggedIn, user);
         }
     });
+
     // Native socketIO event
     socket.on('disconnect', () => {
         disconnectUser(socket);
@@ -33,11 +37,12 @@ const registerEvents = (socket: SocketIO.Socket) => {
     });
 
     socket.on(events.Client.StartGame, () => {
-        game.start(session.users);
+        game.start(Object.values(session.users));
+        ioLayer.emit(events.Server.GameStarted, 'data');
     });
 };
 
-export const register = (ioLayer: SocketIO.Server): void => {
-    _ioLayer = ioLayer;
+export const register = (_ioLayer: SocketIO.Server): void => {
+    ioLayer = _ioLayer;
     ioLayer.on('connection', registerEvents);
 };
