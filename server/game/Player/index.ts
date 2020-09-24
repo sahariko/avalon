@@ -1,10 +1,10 @@
 import User from '../../../lib/User';
-import { Roles } from './constants';
+import { Role, CAN_SEE_EVIL_ROLES } from './constants';
 
 class Player extends User {
-    role: Roles;
+    role: Role;
 
-    constructor(user: User, role: Roles) {
+    constructor(user: User, role: Role) {
         super(user.id, user.username);
 
         Object.assign(this, {
@@ -13,7 +13,7 @@ class Player extends User {
     }
 
     get canSeeEvil(): boolean {
-        return [Roles.Evil, Roles.Merlin].includes(this.role);
+        return CAN_SEE_EVIL_ROLES.has(this.role);
     }
 }
 

@@ -1,18 +1,19 @@
-import { Roles } from '../Player/constants';
+import { Role } from '../Player/constants';
 import { PLAYERS_TO_ROLES_MAP } from './constants';
 
 const generateSpecialRolesMap = () => new Map([
-    [Roles.Good, [Roles.Merlin]]
+    [Role.Good, [Role.Merlin]]
 ]);
 
-const generateRoleList = (playerAmount: number): Roles[] => {
-    const roleList: Roles[] = [];
+const generateRoleList = (playerAmount: number): Role[] => {
+    const roleList: Role[] = [];
     const specialRoles = generateSpecialRolesMap();
 
     let { good, evil } = PLAYERS_TO_ROLES_MAP.get(playerAmount);
 
-    const generateRole = (alignment: Roles): Roles => {
+    const generateRole = (alignment: Role): Role => {
         const roles = specialRoles.get(alignment);
+        const amountLeft = alignment === Role.Good ? good : evil;
 
         if (!roles || !roles.length) {
             return alignment;
@@ -21,7 +22,7 @@ const generateRoleList = (playerAmount: number): Roles[] => {
         // Generate a number between 1 and the amount of players left in the alignment.
         // If the number is exactly 1 (chance of 1 in X), make that player a special character, otherwise make them a peasant.
 
-        const random = Math.floor(Math.random() * good) + 1;
+        const random = Math.floor(Math.random() * amountLeft) + 1;
         const allocateSpecial = random <= roles.length;
 
         return allocateSpecial
@@ -30,12 +31,12 @@ const generateRoleList = (playerAmount: number): Roles[] => {
     };
 
     const addGood = () => {
-        roleList.push(generateRole(Roles.Good));
+        roleList.push(generateRole(Role.Good));
         good--;
     };
 
     const addEvil = () => {
-        roleList.push(generateRole(Roles.Evil));
+        roleList.push(generateRole(Role.Evil));
         evil--;
     };
 
