@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Client } from '../../../lib/events';
 import { Button, ConnectedUsers, Info, Warning } from '../../components';
 import { send } from '../../events';
-import { startGame } from '../../store/domains/game/actions';
 import { getPlayerData, getPlayersAmount } from '../../store/domains/players/selectors';
 import { Warnings, MINIMUM_PLAYER_AMOUNT } from './constants';
 import './style.scss';
@@ -12,7 +11,6 @@ const Lobby = (): React.ReactElement => {
     const [warning, setWarning] = React.useState(null);
     const usersAmount = useSelector(getPlayersAmount);
     const user = useSelector(getPlayerData);
-    const dispatch = useDispatch();
 
     const handleClick = () => {
         if (usersAmount < MINIMUM_PLAYER_AMOUNT) {
@@ -21,7 +19,6 @@ const Lobby = (): React.ReactElement => {
         }
 
         send(Client.StartGame);
-        dispatch(startGame());
     };
 
     return (
