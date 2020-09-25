@@ -4,14 +4,14 @@ import { Client } from '../../../lib/events';
 import { Button, ConnectedUsers, Info, Warning } from '../../components';
 import { send } from '../../events';
 import { startGame } from '../../store/domains/game/actions';
-import { getUserData, getUsersAmount } from '../../store/domains/users/selectors';
+import { getPlayerData, getPlayersAmount } from '../../store/domains/players/selectors';
 import { Warnings, MINIMUM_PLAYER_AMOUNT } from './constants';
 import './style.scss';
 
 const Lobby = (): React.ReactElement => {
     const [warning, setWarning] = React.useState(null);
-    const usersAmount = useSelector(getUsersAmount);
-    const user = useSelector(getUserData);
+    const usersAmount = useSelector(getPlayersAmount);
+    const user = useSelector(getPlayerData);
     const dispatch = useDispatch();
 
     const handleClick = () => {

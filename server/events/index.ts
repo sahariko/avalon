@@ -6,11 +6,10 @@ let ioLayer: SocketIO.Server;
 
 const disconnectUser = (socket: SocketIO.Socket) =>
 {
-    const connection = session.get(socket.id);
-
-    session.remove(socket.id);
+    const connection = session.getBySocketID(socket.id);
 
     if (connection) {
+        session.remove(connection.username);
         ioLayer.emit(events.Server.UserLoggedOut, connection.toObject());
     }
 };
@@ -38,7 +37,12 @@ const registerEvents = (socket: SocketIO.Socket) => {
 
     socket.on(events.Client.StartGame, () => {
         game.start(Object.values(session.users));
-        ioLayer.emit(events.Server.GameStarted, 'data');
+
+        session.connections.forEach((connection) => {
+            connection.emit(events.Server.GameStarted, {
+                playerData: game.getPlayersData(connection.username)
+            });
+        });
     });
 };
 

@@ -1,24 +1,55 @@
+import Player, { PlayerMap } from '../../lib/Player';
+import { Role } from '../../lib/Player/constants';
 import User from '../../lib/User';
 import generateRoleList from './generateRoleList';
-import Player from './Player';
 
 class Game {
     private started: boolean;
-    private players: Player[];
+    private players: Map<string, Player>;
 
     private initializePlayers(users: User[]): void {
+        this.players = new Map();
+
         const roleList = generateRoleList(users.length);
 
-        this.players = users.map((user, index) => (
-            new Player(user, roleList[index])
-        ));
+        users.forEach((user, index) => {
+            this.players.set(user.username, new Player(user, roleList[index]));
+        });
+    }
+
+    get evilPlayers(): Player[] {
+        const evilPlayers: Player[] = [];
+
+        this.players.forEach((player) => {
+            if (player.role === Role.Evil) {
+                evilPlayers.push(player);
+            }
+        });
+
+        return evilPlayers;
+    }
+
+    getPlayersData(username: string) {
+        const player = this.players.get(username);
+
+        const data: PlayerMap = {
+            [player.username]: player
+        };
+
+        if (player.canSeeEvil) {
+            this.evilPlayers.forEach((evilPlayer) => {
+                data[evilPlayer.username] = {
+                    role: evilPlayer.role
+                };
+            });
+        }
+
+        return data;
     }
 
     start(users: User[]) {
         this.started = true;
         this.initializePlayers(users);
-
-        console.log('this.players:', this.players);
     }
 }
 

@@ -9,7 +9,7 @@ type AddUserResponse = {
 }
 
 class Session {
-    private connections: Map<string, Connection>;
+    connections: Map<string, Connection>;
 
     constructor() {
         this.connections = new Map();
@@ -53,8 +53,9 @@ class Session {
        this.connections.delete(username);
     }
 
-    get(username: string) {
-        return this.connections.get(username);
+    getBySocketID(id: string) {
+        return Array.from(this.connections.values())
+            .find((connection) => connection.socket && connection.socket.id === id);
     }
 }
 
@@ -64,12 +65,6 @@ const session = new Session();
 session.add('Benun');
 session.add('שם ממש ממש ממש ממש ארוך');
 session.add('פיתוש');
-session.add('אורי1');
-session.add('אורי2');
-session.add('אורי3');
-session.add('אורי4');
-session.add('אורי5');
-session.add('אורי6');
-session.add('אורי7');
+session.add('אורי');
 
 export default session;

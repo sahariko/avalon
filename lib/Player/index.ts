@@ -1,10 +1,14 @@
-import User from '../../../lib/User';
+import User from '../User';
 import { Role, CAN_SEE_EVIL_ROLES } from './constants';
 
-class Player extends User {
-    role: Role;
+export interface PlayerMap {
+    [username: string]: Partial<Player>
+}
 
-    constructor(user: User, role: Role) {
+class Player extends User {
+    role?: Role;
+
+    constructor(user: User, role: Role = Role.Good) {
         super(user.username);
 
         Object.assign(this, {

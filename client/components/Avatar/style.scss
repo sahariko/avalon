@@ -1,41 +1,19 @@
 @import '../../assets/styles/colors';
 
-$avatar_size: 50px;
-$colors: (
-    $red: white,
-    $yellow: #8f8100,
-    $green: white,
-    $blue: white,
-    $pink: white,
-    $orange: white,
-    $teal: white,
-    $purple: white,
-    $brown: white,
-    $violet: white,
-);
-$i: 0;
-
 .avatar {
     position: relative;
     display: inline-flex;
-    background: grey;
-    height: $avatar_size;
-    width: $avatar_size;
-    border-radius: 50%;
+    width: 110px;
 
-    .icon {
+    .username {
         position: absolute;
-        top: -19px;
-        left: 22px;
-        z-index: -1;
-    }
-
-    @each $bg_color, $font_color in $colors {
-        $i: $i + 1;
-
-        &.color-#{$i} {
-            background: $bg_color;
-            color: $font_color;
-        }
+        left: 50%;
+        bottom: -23px;
+        transform: translateX(-50%);
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        text-align: center;
     }
 }

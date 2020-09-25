@@ -1,11 +1,11 @@
 import { Actions, GameActionTypes, GameReducerState } from './types';
 
-const DEFAULT_STATE: GameReducerState = {
+export const init = (): GameReducerState => ({
     started: false
-};
+});
 
 const reducer = (
-    state = DEFAULT_STATE,
+    state = init(),
     action: GameActionTypes
 ): GameReducerState => {
     switch (action.type) {

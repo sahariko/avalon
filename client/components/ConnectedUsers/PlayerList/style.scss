@@ -1,0 +1,22 @@
+$user_size: 130px;
+
+.no-one {
+    opacity: .5;
+}
+
+.players-list {
+    flex-direction: row;
+    max-width: $user_size * 5;
+    flex-wrap: wrap;
+    padding: 0;
+
+    li {
+        display: inline-flex;
+        width: $user_size;
+        margin-bottom: 30px;
+
+        .avatar {
+            margin-bottom: 30px;
+        }
+    }
+}

@@ -2,6 +2,9 @@ import * as React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from './store';
+import { init as initUsers } from './store/domains/players/reducer';
+import { init as initUser } from './store/domains/user/reducer';
+import { init as initGame } from './store/domains/game/reducer';
 import { InitialData } from './types';
 
 import './assets/styles/index.scss';
@@ -15,11 +18,9 @@ declare global {
 
 if (container) {
     const store = createStore({
-        users: window.initialData.connectedUsers,
-        user: 'פיתוש',
-        game: {
-            started: false
-        }
+        players: initUsers(window.initialData.connectedUsers),
+        user: initUser(),
+        game: initGame()
     });
 
     render(

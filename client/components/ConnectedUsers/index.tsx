@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
-import { getUserData, getUsersList } from '../../store/domains/users/selectors';
-import UsersList from './UsersList';
+import { getPlayerData, getPlayersList } from '../../store/domains/players/selectors';
+import PlayerList from './PlayerList';
 
 interface ConnectedUsersProps {
     title?: string;
@@ -10,13 +10,13 @@ interface ConnectedUsersProps {
 const ConnectedUsers = ({
     title = 'מי כבר בפנים'
 }: ConnectedUsersProps): React.ReactElement => {
-    const users = useSelector(getUsersList);
-    const { username } = useSelector(getUserData) || {};
+    const players = useSelector(getPlayersList);
+    const { username } = useSelector(getPlayerData) || {};
 
     return (
         <div className="flex-center">
             <h2>{title}</h2>
-            <UsersList username={username} users={users}/>
+            <PlayerList username={username} players={players}/>
         </div>
     );
 };
