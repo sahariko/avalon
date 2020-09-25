@@ -7,6 +7,7 @@ export interface PlayerMap {
 
 class Player extends User {
     role?: Role;
+    ready?: boolean;
 
     static isEvil(role: Role): boolean {
         return [

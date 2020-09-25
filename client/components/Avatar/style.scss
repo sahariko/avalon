@@ -31,8 +31,8 @@ $background_size: 66px;
     .ready-icon {
         position: absolute;
         z-index: 3;
-        bottom: 0;
-        right: 0;
+        bottom: -5px;
+        left: 27px;
     }
 
     &.is-me {

@@ -4,7 +4,8 @@ export enum Actions {
     SetPlayers = 'SetPlayers',
     AddPlayer = 'AddPlayer',
     RemovePlayer = 'RemovePlayer',
-    UpdatePlayers = 'UpdatePlayers'
+    UpdatePlayers = 'UpdatePlayers',
+    SetPlayerReady = 'SetPlayerReady'
 }
 
 export type PlayersReducerState = {
@@ -17,7 +18,7 @@ interface SetPlayersAction {
 }
 
 interface ChangePlayerAction {
-    type: Actions.AddPlayer | Actions.RemovePlayer;
+    type: Actions.AddPlayer | Actions.RemovePlayer | Actions.SetPlayerReady;
     player: Player;
 }
 

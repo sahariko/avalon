@@ -13,7 +13,9 @@ import { Avalon } from './App';
 const container = typeof document !== 'undefined' && document.getElementById('app');
 
 declare global {
-    interface Window { initialData: InitialData; }
+    interface Window {
+        initialData: InitialData;
+    }
 }
 
 if (container) {

@@ -33,6 +33,14 @@ const reducer = (
 
             return players;
         }
+        case Actions.SetPlayerReady: {
+            const players: PlayersReducerState = { ...state };
+            const { player } = action;
+
+            players[player.username].ready = true;
+
+            return players;
+        }
         default:
             return state;
     }

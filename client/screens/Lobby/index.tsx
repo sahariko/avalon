@@ -18,7 +18,7 @@ const Lobby = (): React.ReactElement => {
             return;
         }
 
-        send(Client.StartGame);
+        send(Client.UserReady, user);
     };
 
     return (
@@ -35,7 +35,7 @@ const Lobby = (): React.ReactElement => {
                 <Button color="green"
                     size={Button.Sizes.Large}
                     onClick={handleClick}>
-                    התחל
+                    מוכן להתחיל
                 </Button>
             </section>
             <ConnectedUsers/>
