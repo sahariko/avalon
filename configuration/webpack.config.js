@@ -37,7 +37,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.tsx?$/,
+                test: /\.(tsx?|js)$/,
                 use: [
                     'ts-loader',
                     'eslint-loader'
@@ -77,11 +77,6 @@ module.exports = {
         splitChunks: {
             chunks: 'all',
             cacheGroups: {
-                // default: {
-                //     minChunks: 2,
-                //     priority: -20,
-                //     reuseExistingChunk: true
-                // },
                 vendors: {
                     test: /[\\/]node_modules[\\/]/,
                     filename: 'vendors.js'

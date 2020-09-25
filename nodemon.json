@@ -8,6 +8,5 @@
   "watch": [
     "server"
   ],
-  "exec": "npm start",
   "ext": "ts"
 }

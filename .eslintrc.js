@@ -42,7 +42,13 @@ module.exports = {
             rules: {
                 '@typescript-eslint/no-unused-vars': 2,
                 '@typescript-eslint/no-explicit-any': 2,
-                '@typescript-eslint/explicit-module-boundary-types': 2,
+                '@typescript-eslint/explicit-module-boundary-types': 2
+            }
+        },
+        {
+            files: ['**/story.tsx'],
+            rules: {
+                '@typescript-eslint/explicit-module-boundary-type': 0
             }
         }
     ]

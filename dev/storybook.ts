@@ -1,0 +1,24 @@
+import { Store } from 'redux';
+import Player from '../lib/Player';
+import User from '../lib/User';
+import { init as initPlayers } from '../client/store/domains/players/reducer';
+import { PlayersReducerState } from '../client/store/domains/players/types';
+import { init as initUser } from '../client/store/domains/user/reducer';
+import { init as initGame } from '../client/store/domains/game/reducer';
+import { createStore } from '../client/store';
+
+export const mockPlayers = (players: Partial<Player>[]): PlayersReducerState => (
+    players.reduce((acc: PlayersReducerState, { username, role }) => ({
+        ...acc,
+        [username]: new Player(new User(username), role)
+    }), {})
+);
+
+export const mockStore = ({
+    players = {},
+    user = initUser()
+} = {}): Store => createStore({
+    players: initPlayers(players),
+    user,
+    game: initGame()
+});

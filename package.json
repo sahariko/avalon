@@ -8,8 +8,9 @@
     "build:server": "tsc",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "build:client": "webpack --config configuration/webpack.config",
-    "dev": "NODE_ENV=development nodemon & webpack-dev-server --config configuration/webpack.config",
-    "start-session": "node tests/startSession.js"
+    "dev": "NODE_ENV=development nodemon --exec \"npm start\" & webpack-dev-server --config configuration/webpack.config",
+    "start-session": "nodemon --delay 3 dev/startSession.js",
+    "storybook": "start-storybook -c configuration/storybook -p 1337"
   },
   "author": "Sahar Brodbeker <saharonb@gmail.com>",
   "license": "ISC",
@@ -36,6 +37,8 @@
     "ts-node": "^9.0.0"
   },
   "devDependencies": {
+    "@storybook/cli": "^6.0.21",
+    "@storybook/react": "^6.0.21",
     "@typescript-eslint/eslint-plugin": "^4.1.1",
     "@typescript-eslint/parser": "^4.1.1",
     "css-loader": "^4.3.0",
