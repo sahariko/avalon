@@ -61,10 +61,4 @@ class Session {
 
 const session = new Session();
 
-// TEMP - Remove
-session.add('Benun');
-session.add('שם ממש ממש ממש ממש ארוך');
-session.add('פיתוש');
-session.add('אורי');
-
 export default session;

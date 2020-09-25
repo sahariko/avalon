@@ -68,6 +68,7 @@ class Login extends React.Component<unknown, LoginState> {
                         value={username}
                         onChange={this.handleInput}
                         className={inputClasses}
+                        id="username-input"
                     />
                     <Button color="pink">הכנס</Button>
                     { warning && (
