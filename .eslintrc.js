@@ -46,9 +46,10 @@ module.exports = {
             }
         },
         {
-            files: ['**/story.tsx'],
+            files: ['dev/storybook.ts', '**/story.tsx'],
             rules: {
-                '@typescript-eslint/explicit-module-boundary-type': 0
+                '@typescript-eslint/explicit-module-boundary-type': 0,
+                '@typescript-eslint/ban-types': 0
             }
         }
     ]
