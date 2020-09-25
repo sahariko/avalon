@@ -8,6 +8,7 @@ export const avatar = (): React.ReactElement => (
         username={text('Username', 'הדסי')}
         isMe={boolean('Is it me you\'re looking for?', false)}
         role={roleSelectKnob()}
+        ready={boolean('Are you ready?', false)}
     />
 );
 
