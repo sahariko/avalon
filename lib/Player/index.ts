@@ -8,6 +8,7 @@ export interface PlayerMap {
 class Player extends User {
     role?: Role;
     ready?: boolean;
+    canSeeEvil?: boolean;
 
     static isEvil(role: Role): boolean {
         return [
@@ -19,12 +20,9 @@ class Player extends User {
         super(user.username);
 
         Object.assign(this, {
-            role
+            role,
+            canSeeEvil: CAN_SEE_EVIL_ROLES.has(this.role)
         });
-    }
-
-    get canSeeEvil(): boolean {
-        return CAN_SEE_EVIL_ROLES.has(this.role);
     }
 }
 

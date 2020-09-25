@@ -18,8 +18,18 @@ const Lobby = (): React.ReactElement => {
             return;
         }
 
-        send(Client.UserReady, user);
+        send(
+            user.ready ? Client.UserNotReady : Client.UserReady,
+            user
+        );
     };
+
+    const buttonColor = user.ready
+        ? 'red'
+        : 'green';
+    const buttonText = user.ready
+        ? 'בעצם לא'
+        : 'מוכן להתחיל';
 
     return (
         <section className="screen lobby-screen flex-center">
@@ -32,10 +42,10 @@ const Lobby = (): React.ReactElement => {
                         { warning }
                     </Warning>
                 )}
-                <Button color="green"
+                <Button color={buttonColor}
                     size={Button.Sizes.Large}
                     onClick={handleClick}>
-                    מוכן להתחיל
+                    { buttonText }
                 </Button>
             </section>
             <ConnectedUsers/>

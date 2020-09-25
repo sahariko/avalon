@@ -24,6 +24,9 @@ export const emit = (eventType: string, ...args: any[]): void => { // eslint-dis
         case Client.UserReady:
             execute(Server.UserReady, ...args);
             break;
+        case Client.UserNotReady:
+            execute(Server.UserNotReady, ...args);
+            break;
         default:
             break;
     }

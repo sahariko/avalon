@@ -2,6 +2,7 @@ export enum Client {
     Login = 'Login',
     UserDisconnected = 'UserDisconnected',
     UserReady = 'UserReady',
+    UserNotReady = 'UserNotReady',
     StartGame = 'StartGame'
 }
 
@@ -11,5 +12,6 @@ export enum Server {
     LoginFailed = 'LoginFailed',
     LoginSuccess = 'LoginSuccess',
     GameStarted = 'GameStarted',
-    UserReady = 'ServerUserReady'
+    UserReady = 'ServerUserReady',
+    UserNotReady = 'ServerUserNotReady'
 }
