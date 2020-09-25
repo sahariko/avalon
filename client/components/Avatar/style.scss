@@ -1,5 +1,7 @@
 @import '../../assets/styles/colors';
 
+$background_size: 66px;
+
 .avatar {
     position: relative;
     display: inline-flex;
@@ -15,5 +17,38 @@
         white-space: nowrap;
         text-overflow: ellipsis;
         text-align: center;
+    }
+
+    .icon {
+        position: relative;
+
+        svg {
+            position: relative;
+            z-index: 2;
+        }
+    }
+
+    &.is-me {
+        .icon {
+            &:before {
+                position: absolute;
+                left: 50%;
+                top: -15px;
+                transform: translateX(-50%);
+                height: $background_size;
+                width: $background_size;
+                background: $blue;
+                border-radius: 50%;
+                content: '';
+            }
+        }
+    }
+
+    &.is-evil {
+        .icon {
+            &:before {
+                background: $red;
+            }
+        }
     }
 }

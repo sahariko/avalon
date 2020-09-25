@@ -23,7 +23,7 @@ const PlayerList = ({ players, username }: PlayerListProps): React.ReactElement 
                 return (
                     <li key={player.username} className="flex-center">
                         <Avatar {...player}
-                            showFlag={player.username === username}/>
+                            isMe={player.username === username}/>
                     </li>
                 );
             })}

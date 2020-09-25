@@ -8,6 +8,12 @@ export interface PlayerMap {
 class Player extends User {
     role?: Role;
 
+    static isEvil(role: Role): boolean {
+        return [
+            Role.Evil
+        ].includes(role);
+    }
+
     constructor(user: User, role: Role = Role.Good) {
         super(user.username);
 
