@@ -26,7 +26,7 @@ const Lobby = (): React.ReactElement => {
             <h2>היי { user.username }!</h2>
             <section className="start-game flex-center">
                 <p>אנחנו מחכים שמישהו יתחיל את המשחק</p>
-                <Info>המשתמש שלך מסומן עם דגל</Info>
+                <Info>המשתמש שלך מסומן ברקע צבעוני</Info>
                 { warning && (
                     <Warning>
                         { warning }
