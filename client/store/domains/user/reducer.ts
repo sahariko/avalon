@@ -1,9 +1,9 @@
 import { Actions, UserActionTypes, UserReducerState } from './types';
 
-const DEFAULT_STATE: UserReducerState = null;
+export const init = (): UserReducerState => null;
 
 const reducer = (
-    state = DEFAULT_STATE,
+    state = init(),
     action: UserActionTypes
 ): UserReducerState => {
     switch (action.type) {

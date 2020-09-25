@@ -1,41 +1,29 @@
 import { createStore as _createStore, combineReducers, Store } from 'redux';
 import { devToolsEnhancer } from 'redux-devtools-extension';
-import User from '../../lib/User';
-import { subscribe } from '../events';
-import * as events from '../../lib/events';
+import { registerCallbacks } from './eventHandler';
 
-// Users domain
-import { addUser, removeUser } from './domains/users/actions';
-import users from './domains/users/reducer';
-import { UsersReducerState } from './domains/users/types';
+// Player domain
+import players from './domains/players/reducer';
+import { PlayersReducerState } from './domains/players/types';
 
 // User domain
-import { setUser } from './domains/user/actions';
 import user from './domains/user/reducer';
 import { UserReducerState } from './domains/user/types';
 
-const registerCallbacks = (store: Store) => {
-    subscribe(events.Server.UserLoggedIn, (user: User) => {
-        store.dispatch(addUser(user));
-    });
-
-    subscribe(events.Server.UserLoggedOut, (user: User) => {
-        store.dispatch(removeUser(user));
-    });
-
-    subscribe(events.Server.LoginSuccess, ({ id }) => {
-        store.dispatch(setUser(id));
-    });
-};
+// Game domain
+import { GameReducerState } from './domains/game/types';
+import game from './domains/game/reducer';
 
 const reducers = combineReducers({
-    users,
-    user
+    players,
+    user,
+    game
 });
 
 export interface StoreState {
-    users: UsersReducerState;
+    players: PlayersReducerState;
     user: UserReducerState;
+    game: GameReducerState;
 }
 
 export let storeInstance: Store;

@@ -1,25 +1,49 @@
 import * as React from 'react';
-import flagIcon from '../../assets/icons/flag.svg';
+import classnames from 'classnames';
+import Player from '../../../lib/Player';
+import { Role } from '../../../lib/Player/constants';
+import knightIcon from '../../assets/icons/knight.svg';
+import evilIcon from '../../assets/icons/evil.svg';
+import merlinIcon from '../../assets/icons/merlin.svg';
 import Icon from '../Icon';
 import './style.scss';
 
 interface AvatarProps {
     username: string;
-    colorIndex: number;
-    showFlag?: boolean;
+    isMe?: boolean;
+    role?: Role;
 }
 
 const Avatar = ({
     username,
-    colorIndex,
-    showFlag
+    isMe = false,
+    role = Role.Good
 }: AvatarProps): React.ReactElement => {
-    const initial = username.charAt(0);
+    const getIcon = () => {
+        if (role === Role.Evil) {
+            return evilIcon;
+        }
+
+        if (role === Role.Merlin) {
+            return merlinIcon;
+        }
+
+        return knightIcon;
+    };
+
+    const classes = classnames('avatar flex-center', {
+        'is-me': isMe,
+        'is-evil': Player.isEvil(role)
+    });
 
     return (
-        <span className={`avatar flex-center color-${colorIndex}`}>
-            { initial }
-            { showFlag && <Icon size={25}>{flagIcon}</Icon> }
+        <span className={classes}>
+            <Icon size={60}>
+                { getIcon() }
+            </Icon>
+            <span className="username">
+                { username }
+            </span>
         </span>
     );
 };

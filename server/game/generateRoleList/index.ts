@@ -1,4 +1,4 @@
-import { Role } from '../Player/constants';
+import { Role } from '../../../lib/Player/constants';
 import { PLAYERS_TO_ROLES_MAP } from './constants';
 
 const generateSpecialRolesMap = () => new Map([

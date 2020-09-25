@@ -1,7 +1,7 @@
-import User from '../lib/User';
+import Player from '../lib/Player';
 
 export interface InitialData {
     connectedUsers: {
-        [id: string]: User
+        [id: string]: Player
     };
 }
