@@ -1,5 +1,6 @@
 export enum Actions {
-    StartGame = 'StartGame'
+    StartGame = 'StartGame',
+    AbortGame = 'AbortGame'
 }
 
 export type GameReducerState = {
@@ -10,4 +11,8 @@ interface StartGameAction {
     type: Actions.StartGame;
 }
 
-export type GameActionTypes = StartGameAction;
+export interface AbortGameAction {
+    type: Actions.AbortGame;
+}
+
+export type GameActionTypes = StartGameAction | AbortGameAction;

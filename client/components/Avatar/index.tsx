@@ -49,8 +49,8 @@ const Avatar = ({
             </span>
             { ready && (
                 <Icon size={24} className="ready-icon">
-                { bannerIcon }
-            </Icon>
+                    { bannerIcon }
+                </Icon>
             )}
         </span>
     );

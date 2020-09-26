@@ -4,7 +4,7 @@ import Player from '../../../lib/Player';
 import { subscribe } from '../../events';
 import { setUser } from '../domains/user/actions';
 import { addPlayer, removePlayer, setPlayerNotReady, setPlayerReady, updatePlayersData } from '../domains/players/actions';
-import { startGame } from '../domains/game/actions';
+import { abortGame, startGame } from '../domains/game/actions';
 
 export const registerCallbacks = (store: Store): void => {
     subscribe(events.Server.UserLoggedIn, (player: Player) => {
@@ -25,6 +25,10 @@ export const registerCallbacks = (store: Store): void => {
     }) => {
         store.dispatch(startGame());
         store.dispatch(updatePlayersData(playerData));
+    });
+
+    subscribe(events.Server.GameAborted, () => {
+        store.dispatch(abortGame());
     });
 
     subscribe(events.Server.UserReady, (player: Player) => {

@@ -2,9 +2,10 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { init, send } from '../events';
 import { userExists } from '../store/domains/user/selectors';
-import * as screens from '../screens';
-import './style.scss';
 import { isGameStarted } from '../store/domains/game/selectors';
+import * as screens from '../screens';
+import AbortGameButton from '../components/AbortGameButton';
+import './style.scss';
 
 const getScreen = (
     userExists: boolean,
@@ -41,6 +42,7 @@ export const Avalon = (): React.ReactElement => {
                 <h1>אבאלון</h1>
             </header>
             <Screen/>
+            <AbortGameButton/>
         </>
     );
 };

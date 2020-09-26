@@ -14,6 +14,11 @@ const reducer = (
                 ...state,
                 started: true
             };
+        case Actions.AbortGame:
+            return {
+                ...state,
+                started: false
+            };
         default:
             return state;
     }

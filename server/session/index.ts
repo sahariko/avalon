@@ -85,6 +85,12 @@ class Session {
 
         return connection.toObject();
     }
+
+    setConnectionsReadyState(readyState = false) {
+        this.connections.forEach((connection) => {
+            connection.ready = readyState;
+        });
+    }
 }
 
 const session = new Session();

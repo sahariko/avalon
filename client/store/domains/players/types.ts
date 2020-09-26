@@ -1,4 +1,5 @@
 import Player, { PlayerData, PlayerMap } from '../../../../lib/Player';
+import { AbortGameAction } from '../game/types';
 
 export enum Actions {
     SetPlayers = 'SetPlayers',
@@ -28,4 +29,4 @@ interface UpdatePlayersAction {
     players: PlayerMap;
 }
 
-export type PlayersActionTypes = SetPlayersAction | ChangePlayerAction | UpdatePlayersAction;
+export type PlayersActionTypes = SetPlayersAction | ChangePlayerAction | UpdatePlayersAction | AbortGameAction;
