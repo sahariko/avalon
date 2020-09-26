@@ -11,14 +11,14 @@ const getScreen = (
     gameStarted: boolean
 ) => {
     if (!userExists) {
-        return screens.Login;
+        return gameStarted
+            ? screens.GameStarted
+            : screens.Login;
     }
 
-    if (gameStarted) {
-        return screens.Board;
-    }
-
-    return screens.Lobby;
+    return gameStarted
+        ? screens.Board
+        : screens.Lobby;
 };
 
 export const Avalon = (): React.ReactElement => {
