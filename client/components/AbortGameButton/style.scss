@@ -37,4 +37,9 @@ $distance: 25px;
             visibility: visible;
         }
     }
+
+    &.disabled {
+        pointer-events: none;
+        filter: grayscale(1);
+    }
 }

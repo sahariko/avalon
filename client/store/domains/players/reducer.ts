@@ -1,3 +1,4 @@
+import { Actions as GameActions } from '../game/types';
 import { Actions, PlayersActionTypes, PlayersReducerState } from './types';
 
 export const init = (players: PlayersReducerState = {}): PlayersReducerState => (players);
@@ -49,6 +50,19 @@ const reducer = (
                     ready: false
                 }
             };
+        case GameActions.AbortGame: {
+            const newState = { ...state };
+
+            for (const username in newState) {
+                newState[username] = {
+                    ...newState[username],
+                    ready: false
+                }; // Make a copy
+                delete newState[username].role;
+            }
+
+            return newState;
+        }
         default:
             return state;
     }

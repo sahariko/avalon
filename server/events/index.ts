@@ -56,6 +56,12 @@ const registerEvents = (socket: SocketIO.Socket) => {
 
         ioLayer.emit(events.Server.UserNotReady, connection);
     });
+
+    socket.on(events.Client.AbortGame, () => {
+        session.setConnectionsReadyState(false);
+
+        ioLayer.emit(events.Server.GameAborted);
+    });
 };
 
 export const register = (_ioLayer: SocketIO.Server): void => {
