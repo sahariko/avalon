@@ -2,16 +2,25 @@ import User from '../../../lib/User';
 
 class Connection extends User {
     socket: SocketIO.Socket;
+    ready: boolean;
 
     constructor(username: string, socket: SocketIO.Socket) {
         super(username);
 
         Object.assign(this, {
-            socket
+            socket,
+            ready: false
         });
     }
 
-    toObject(): User {
+    toObject(): Partial<Connection> {
+        return {
+            username: this.username,
+            ready: this.ready
+        };
+    }
+
+    userData(): User {
         return {
             username: this.username
         };

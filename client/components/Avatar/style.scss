@@ -19,7 +19,7 @@ $background_size: 66px;
         text-align: center;
     }
 
-    .icon {
+    .role-icon {
         position: relative;
 
         svg {
@@ -28,8 +28,15 @@ $background_size: 66px;
         }
     }
 
+    .ready-icon {
+        position: absolute;
+        z-index: 3;
+        bottom: -5px;
+        left: 27px;
+    }
+
     &.is-me {
-        .icon {
+        .role-icon {
             &:before {
                 position: absolute;
                 left: 50%;
@@ -45,7 +52,7 @@ $background_size: 66px;
     }
 
     &.is-evil {
-        .icon {
+        .role-icon {
             &:before {
                 background: $red;
             }

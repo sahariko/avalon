@@ -4,8 +4,9 @@ import * as events from '../../lib/events';
 let socket: SocketIOClient.Socket;
 const onInitCallbacks: Array<() => any> = []; // eslint-disable-line @typescript-eslint/no-explicit-any
 
-export const init = (): void => {
-    socket = io();
+export const init = (_socket = io()): void => {
+    socket = _socket;
+
     onInitCallbacks.forEach((callback) => {
         callback();
     });

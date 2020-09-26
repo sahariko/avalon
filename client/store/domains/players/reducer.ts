@@ -33,6 +33,22 @@ const reducer = (
 
             return players;
         }
+        case Actions.SetPlayerReady:
+            return {
+                ...state,
+                [action.player.username]: {
+                    ...state[action.player.username],
+                    ready: true
+                }
+            };
+        case Actions.SetPlayerNotReady:
+            return {
+                ...state,
+                [action.player.username]: {
+                    ...state[action.player.username],
+                    ready: false
+                }
+            };
         default:
             return state;
     }

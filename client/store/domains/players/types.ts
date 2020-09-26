@@ -1,14 +1,16 @@
-import Player, { PlayerMap } from '../../../../lib/Player';
+import Player, { PlayerData, PlayerMap } from '../../../../lib/Player';
 
 export enum Actions {
     SetPlayers = 'SetPlayers',
     AddPlayer = 'AddPlayer',
     RemovePlayer = 'RemovePlayer',
-    UpdatePlayers = 'UpdatePlayers'
+    UpdatePlayers = 'UpdatePlayers',
+    SetPlayerReady = 'SetPlayerReady',
+    SetPlayerNotReady = 'SetPlayerNotReady'
 }
 
 export type PlayersReducerState = {
-    [id: string]: Player
+    [id: string]: PlayerData
 };
 
 interface SetPlayersAction {
@@ -17,7 +19,7 @@ interface SetPlayersAction {
 }
 
 interface ChangePlayerAction {
-    type: Actions.AddPlayer | Actions.RemovePlayer;
+    type: Actions.AddPlayer | Actions.RemovePlayer | Actions.SetPlayerReady | Actions.SetPlayerNotReady;
     player: Player;
 }
 

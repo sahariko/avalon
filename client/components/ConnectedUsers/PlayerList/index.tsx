@@ -1,10 +1,10 @@
 import * as React from 'react';
-import Player from '../../../../lib/Player';
+import { PlayerData } from '../../../../lib/Player';
 import Avatar from '../../Avatar';
 import './style.scss';
 
 interface PlayerListProps {
-    players: Player[];
+    players: PlayerData[];
     username?: string;
 }
 

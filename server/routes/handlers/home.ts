@@ -6,7 +6,7 @@ const home = (req: Request, res: Response): void => {
     res.render(paths.template, {
         public_path: isDev ? 'http://localhost:8080/dist' : '',
         initial_data: {
-            connectedUsers: session.users
+            connectedUsers: session.connectionsList
         }
     });
 };

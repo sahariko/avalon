@@ -5,7 +5,7 @@ import { MAX_USERS } from './constants';
 
 type AddUserResponse = {
     warning?: string,
-    user?: User
+    user?: Partial<Connection>
 }
 
 class Session {
@@ -19,10 +19,30 @@ class Session {
         const users: {[id: string]: User} = {};
 
         this.connections.forEach((connection) => {
-            users[connection.username] = connection.toObject();
+            users[connection.username] = connection.userData();
         });
 
         return users;
+    }
+
+    get connectionsList() {
+        const connections: {[id: string]: Partial<Connection>} = {};
+
+        this.connections.forEach((connection) => {
+            connections[connection.username] = connection.toObject();
+        });
+
+        return connections;
+    }
+
+    get readyToStart(): boolean {
+        const connections = Object.values(this.connectionsList);
+
+        if (connections.length < 5) {
+            return false;
+        }
+
+        return connections.every((connection: Partial<Connection>) => connection.ready);
     }
 
     userExists(username: string) {
@@ -56,6 +76,14 @@ class Session {
     getBySocketID(id: string) {
         return Array.from(this.connections.values())
             .find((connection) => connection.socket && connection.socket.id === id);
+    }
+
+    markConnectionReady(id: string, readyState = false): Partial<Connection> {
+        const connection = this.getBySocketID(id);
+
+        connection.ready = readyState;
+
+        return connection.toObject();
     }
 }
 

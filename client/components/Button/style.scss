@@ -37,4 +37,5 @@ button {
 
     @include colorButton(pink, $pink);
     @include colorButton(green, $green);
+    @include colorButton(red, $red);
 }

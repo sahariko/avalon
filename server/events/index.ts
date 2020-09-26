@@ -35,14 +35,26 @@ const registerEvents = (socket: SocketIO.Socket) => {
         disconnectUser(socket);
     });
 
-    socket.on(events.Client.StartGame, () => {
-        game.start(Object.values(session.users));
+    socket.on(events.Client.UserReady, () => {
+        const connection = session.markConnectionReady(socket.id, true);
 
-        session.connections.forEach((connection) => {
-            connection.emit(events.Server.GameStarted, {
-                playerData: game.getPlayersData(connection.username)
+        ioLayer.emit(events.Server.UserReady, connection);
+
+        if (session.readyToStart) {
+            game.start(Object.values(session.users));
+
+            session.connections.forEach((connection) => {
+                connection.emit(events.Server.GameStarted, {
+                    playerData: game.getPlayersData(connection.username)
+                });
             });
-        });
+        }
+    });
+
+    socket.on(events.Client.UserNotReady, () => {
+        const connection = session.markConnectionReady(socket.id, false);
+
+        ioLayer.emit(events.Server.UserNotReady, connection);
     });
 };
 

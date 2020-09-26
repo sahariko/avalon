@@ -20,3 +20,13 @@ export const updatePlayersData = (players: PlayerMap): PlayersActionTypes => ({
     type: Actions.UpdatePlayers,
     players
 });
+
+export const setPlayerReady = (player: Player): PlayersActionTypes => ({
+    type: Actions.SetPlayerReady,
+    player
+});
+
+export const setPlayerNotReady = (player: Player): PlayersActionTypes => ({
+    type: Actions.SetPlayerNotReady,
+    player
+});

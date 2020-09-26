@@ -29,14 +29,18 @@ class Game {
         return evilPlayers;
     }
 
+    getPlayer(username: string) {
+        return this.players.get(username);
+    }
+
     getPlayersData(username: string) {
-        const player = this.players.get(username);
+        const player = this.getPlayer(username);
 
         const data: PlayerMap = {
             [player.username]: player
         };
 
-        if (player.canSeeEvil) {
+        if (player.canSeeEvil()) {
             this.evilPlayers.forEach((evilPlayer) => {
                 data[evilPlayer.username] = {
                     role: evilPlayer.role
