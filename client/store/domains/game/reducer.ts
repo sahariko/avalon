@@ -1,7 +1,12 @@
+import { Phase } from '../../../../lib/Game/constants';
 import { Actions, GameActionTypes, GameReducerState } from './types';
 
-export const init = (): GameReducerState => ({
-    started: false
+export const init = (state: Partial<GameReducerState> = {}): GameReducerState => ({
+    started: false,
+    phase: null,
+    questSelectionQueue: [],
+    questSelectorIndex: 0,
+    ...state
 });
 
 const reducer = (
@@ -12,7 +17,9 @@ const reducer = (
         case Actions.StartGame:
             return {
                 ...state,
-                started: true
+                started: true,
+                questSelectionQueue: action.questSelectionQueue,
+                phase: Phase.QuestSelection
             };
         case Actions.AbortGame:
             return {

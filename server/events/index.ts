@@ -14,6 +14,19 @@ const disconnectUser = (socket: SocketIO.Socket) =>
     }
 };
 
+const handleSelection = (username: string, selected: boolean) => {
+    game.getPlayer(username).selected = selected;
+    console.log('here');
+
+    ioLayer.emit(events.Server.UpdateSelectedUsers, {
+        playerData: {
+            [username]: {
+                selected: selected
+            }
+        }
+    });
+};
+
 const registerEvents = (socket: SocketIO.Socket) => {
     socket.on(events.Client.Login, (username) => {
         const { warning, user } = session.add(username, socket);
@@ -45,7 +58,8 @@ const registerEvents = (socket: SocketIO.Socket) => {
 
             session.connections.forEach((connection) => {
                 connection.emit(events.Server.GameStarted, {
-                    playerData: game.getPlayersData(connection.username)
+                    playerData: game.getPlayersData(connection.username),
+                    questSelectionQueue: game.questSelectionQueue
                 });
             });
         }
@@ -61,6 +75,16 @@ const registerEvents = (socket: SocketIO.Socket) => {
         session.setConnectionsReadyState(false);
 
         ioLayer.emit(events.Server.GameAborted);
+    });
+
+    socket.on(events.Client.UserSelectedForQuest, (username: string) => {
+        if (game.canAddSelectedPlayer) {
+            handleSelection(username, true);
+        }
+    });
+
+    socket.on(events.Client.UserUnselectedForQuest, (username: string) => {
+        handleSelection(username, false);
     });
 };
 

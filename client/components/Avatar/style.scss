@@ -5,14 +5,11 @@ $background_size: 66px;
 .avatar {
     position: relative;
     display: inline-flex;
-    width: 110px;
+    padding: 15px 10px 10px;
+    box-sizing: border-box;
 
     .username {
-        position: absolute;
-        left: 50%;
-        bottom: -23px;
-        transform: translateX(-50%);
-        width: 100%;
+        max-width: 65px;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
@@ -21,26 +18,40 @@ $background_size: 66px;
 
     .role-icon {
         position: relative;
+        margin-bottom: 5px;
 
         svg {
             position: relative;
             z-index: 2;
         }
+
+        .ready-icon {
+            position: absolute;
+            z-index: 3;
+            bottom: -4px;
+            left: 5px;
+        }
     }
 
-    .ready-icon {
+    .quest-icons {
         position: absolute;
         z-index: 3;
-        bottom: -5px;
-        left: 27px;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: fit-content;
+
+        .icon + .icon {
+            margin-right: 8px;
+        }
     }
 
     &.is-me {
         .role-icon {
             &:before {
                 position: absolute;
-                left: 50%;
                 top: -15px;
+                left: 50%;
                 transform: translateX(-50%);
                 height: $background_size;
                 width: $background_size;
@@ -57,5 +68,9 @@ $background_size: 66px;
                 background: $red;
             }
         }
+    }
+
+    &.clickable {
+        cursor: pointer;
     }
 }

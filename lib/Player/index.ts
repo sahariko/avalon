@@ -9,11 +9,13 @@ export interface PlayerData {
     username: string;
     role?: Role;
     ready?: boolean;
+    selected?: boolean;
 }
 
 class Player extends User {
     role?: Role;
     ready?: boolean;
+    selected?: boolean;
 
     static isEvil(role: Role): boolean {
         return [

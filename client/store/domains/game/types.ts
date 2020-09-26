@@ -1,14 +1,15 @@
+import { GameData } from '../../../../lib/Game/constants';
+
 export enum Actions {
     StartGame = 'StartGame',
     AbortGame = 'AbortGame'
 }
 
-export type GameReducerState = {
-    started: boolean;
-};
+export type GameReducerState = GameData;
 
 interface StartGameAction {
     type: Actions.StartGame;
+    questSelectionQueue: string[];
 }
 
 export interface AbortGameAction {

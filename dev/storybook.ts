@@ -29,9 +29,9 @@ export const mockPlayers = (players: Partial<Player>[]): PlayersReducerState => 
 export const mockStore = ({
     players = {},
     user = initUser(),
-    game = initGame()
+    game = {}
 } = {}): Store => createStore({
     players: initPlayers(players),
     user,
-    game
+    game: initGame(game)
 });

@@ -3,7 +3,9 @@ export enum Client {
     UserDisconnected = 'UserDisconnected',
     UserReady = 'UserReady',
     UserNotReady = 'UserNotReady',
-    AbortGame = 'AbortGame'
+    AbortGame = 'AbortGame',
+    UserSelectedForQuest = 'UserSelectedForQuest',
+    UserUnselectedForQuest = 'UserUnselectedForQuest'
 }
 
 export enum Server {
@@ -14,5 +16,6 @@ export enum Server {
     GameStarted = 'GameStarted',
     GameAborted = 'GameAborted',
     UserReady = 'ServerUserReady',
-    UserNotReady = 'ServerUserNotReady'
+    UserNotReady = 'ServerUserNotReady',
+    UpdateSelectedUsers = 'UpdateSelectedUsers'
 }

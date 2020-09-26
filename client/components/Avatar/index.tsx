@@ -5,22 +5,30 @@ import { Role } from '../../../lib/Player/constants';
 import knightIcon from '../../assets/icons/knight.svg';
 import evilIcon from '../../assets/icons/evil.svg';
 import merlinIcon from '../../assets/icons/merlin.svg';
-import bannerIcon from '../../assets/icons/banner.svg';
+import readyBannerIcon from '../../assets/icons/ready-banner.svg';
+import questSelectionBannerIcon from '../../assets/icons/quest-selection-banner.svg';
+import selectedForQuestIcon from '../../assets/icons/selected-for-quest.svg';
 import Icon from '../Icon';
 import './style.scss';
 
-interface AvatarProps {
+export interface AvatarProps {
     username: string;
-    isMe?: boolean;
     role?: Role;
+    isMe?: boolean;
     ready?: boolean;
+    selected?: boolean;
+    isQuestSelector?: boolean;
+    onClick?: (username: string) => void;
 }
 
 const Avatar = ({
     username,
-    isMe = false,
     role = Role.Good,
-    ready = false
+    isMe = false,
+    ready = false,
+    selected = false,
+    isQuestSelector = false,
+    onClick
 }: AvatarProps): React.ReactElement => {
     const getIcon = () => {
         if (role === Role.Evil) {
@@ -34,24 +42,46 @@ const Avatar = ({
         return knightIcon;
     };
 
+    const handleClick = () => {
+        if (onClick) {
+            onClick(username);
+        }
+    };
+
     const classes = classnames('avatar flex-center', {
         'is-me': isMe,
-        'is-evil': Player.isEvil(role)
+        'is-evil': Player.isEvil(role),
+        'clickable': !!onClick
     });
 
     return (
-        <span className={classes}>
-            <Icon size={60} className="role-icon">
-                { getIcon() }
-            </Icon>
+        <span className={classes}
+            onClick={handleClick}>
+            <span className="role-icon">
+                <Icon size={60}>
+                    { getIcon() }
+                </Icon>
+                { ready && (
+                    <Icon size={24} className="ready-icon">
+                        { readyBannerIcon }
+                    </Icon>
+                )}
+            </span>
             <span className="username">
                 { username }
             </span>
-            { ready && (
-                <Icon size={24} className="ready-icon">
-                    { bannerIcon }
-                </Icon>
-            )}
+            <span className="quest-icons">
+                { selected && (
+                    <Icon size={30}>
+                        { selectedForQuestIcon }
+                    </Icon>
+                )}
+                { isQuestSelector && (
+                    <Icon size={30}>
+                        { questSelectionBannerIcon }
+                    </Icon>
+                )}
+            </span>
         </span>
     );
 };

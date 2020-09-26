@@ -1,7 +1,8 @@
 import { Actions, GameActionTypes } from './types';
 
-export const startGame = (): GameActionTypes => ({
-    type: Actions.StartGame
+export const startGame = (questSelectionQueue: string[]): GameActionTypes => ({
+    type: Actions.StartGame,
+    questSelectionQueue
 });
 
 export const abortGame = (): GameActionTypes => ({
