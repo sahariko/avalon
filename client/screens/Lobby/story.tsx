@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { mockPlayers, mockStore } from '../../../dev/storybook';
 import Lobby from '.';
 
-export const turnSelection = (): React.ReactElement => (
+export const waitingToStart = (): React.ReactElement => (
     <Provider store={mockStore({
         players: mockPlayers([
             { username: 'אורי' },

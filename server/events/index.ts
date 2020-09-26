@@ -35,6 +35,18 @@ const registerEvents = (socket: SocketIO.Socket) => {
         disconnectUser(socket);
     });
 
+    socket.on(events.Client.UserReady, () => {
+        const connection = session.markConnectionReady(socket.id, true);
+
+        ioLayer.emit(events.Server.UserReady, connection);
+    });
+
+    socket.on(events.Client.UserNotReady, () => {
+        const connection = session.markConnectionReady(socket.id, false);
+
+        ioLayer.emit(events.Server.UserNotReady, connection);
+    });
+
     socket.on(events.Client.StartGame, () => {
         game.start(Object.values(session.users));
 

@@ -8,16 +8,12 @@ import { Warnings, MINIMUM_PLAYER_AMOUNT } from './constants';
 import './style.scss';
 
 const Lobby = (): React.ReactElement => {
-    const [warning, setWarning] = React.useState(null);
     const usersAmount = useSelector(getPlayersAmount);
     const user = useSelector(getPlayerData);
 
-    const handleClick = () => {
-        if (usersAmount < MINIMUM_PLAYER_AMOUNT) {
-            setWarning(Warnings.NotEnoughUsers);
-            return;
-        }
+    const showWarning = usersAmount < MINIMUM_PLAYER_AMOUNT;
 
+    const handleClick = () => {
         send(
             user.ready ? Client.UserNotReady : Client.UserReady,
             user
@@ -37,9 +33,9 @@ const Lobby = (): React.ReactElement => {
             <section className="start-game flex-center">
                 <p>אנחנו מחכים שמישהו יתחיל את המשחק</p>
                 <Info>המשתמש שלך מסומן ברקע צבעוני</Info>
-                { warning && (
+                { showWarning && (
                     <Warning>
-                        { warning }
+                        { Warnings.NotEnoughUsers }
                     </Warning>
                 )}
                 <Button color={buttonColor}
