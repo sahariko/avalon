@@ -12,6 +12,9 @@ init({
 export const decorators = [
     (Story) => (
         <div id="app">
+            <header>
+                <h1>אבאלון</h1>
+            </header>
             <Story/>
         </div>
     )
