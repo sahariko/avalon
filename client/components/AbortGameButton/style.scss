@@ -1,0 +1,40 @@
+$distance: 25px;
+
+.abort-game-button {
+    display: inline-flex;
+    position: fixed;
+    top: $distance;
+    left: $distance;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: .3s;
+
+    .icon {
+        transform: translateX(8px);
+    }
+
+    .tooltip {
+        position: absolute;
+        bottom: -41px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #262626;
+        width: max-content;
+        padding: 8px;
+        border-radius: 4px;
+        color: white;
+        font-size: 14px;
+        opacity: 0;
+        visibility: hidden;
+        transition: .3s;
+    }
+
+    &:hover {
+        opacity: 1;
+
+        .tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+}
