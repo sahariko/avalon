@@ -1,4 +1,4 @@
-import { Client, Server } from '../../lib/events';
+import { Client, Server } from '../lib/events';
 
 interface Events {
     [eventType: string]: Array<(...args: any[]) => any> // eslint-disable-line
@@ -6,7 +6,7 @@ interface Events {
 
 const events: Events = {};
 
-const execute = (eventType: string, ...args: any[]) => {
+const execute = (eventType: string, ...args: any[]) => { // eslint-disable-line
     if (!events[eventType]) { return; }
 
     events[eventType].forEach((callback) => {
@@ -26,6 +26,24 @@ export const emit = (eventType: string, ...args: any[]): void => { // eslint-dis
             break;
         case Client.UserNotReady:
             execute(Server.UserNotReady, ...args);
+            break;
+        case Client.UserSelectedForQuest:
+            execute(Server.UpdateSelectedUsers, {
+                playerData: {
+                    [args[0]]: {
+                        selected: true
+                    }
+                }
+            });
+            break;
+        case Client.UserUnselectedForQuest:
+            execute(Server.UpdateSelectedUsers, {
+                playerData: {
+                    [args[0]]: {
+                        selected: false
+                    }
+                }
+            });
             break;
         default:
             break;

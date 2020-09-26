@@ -21,9 +21,10 @@ export const registerCallbacks = (store: Store): void => {
     });
 
     subscribe(events.Server.GameStarted, ({
-        playerData
+        playerData,
+        questSelectionQueue
     }) => {
-        store.dispatch(startGame());
+        store.dispatch(startGame(questSelectionQueue));
         store.dispatch(updatePlayersData(playerData));
     });
 
@@ -37,5 +38,11 @@ export const registerCallbacks = (store: Store): void => {
 
     subscribe(events.Server.UserNotReady, (player: Player) => {
         store.dispatch(setPlayerNotReady(player));
+    });
+
+    subscribe(events.Server.UpdateSelectedUsers, ({
+        playerData
+    }) => {
+        store.dispatch(updatePlayersData(playerData));
     });
 };

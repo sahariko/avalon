@@ -7,7 +7,8 @@ export enum Actions {
     RemovePlayer = 'RemovePlayer',
     UpdatePlayers = 'UpdatePlayers',
     SetPlayerReady = 'SetPlayerReady',
-    SetPlayerNotReady = 'SetPlayerNotReady'
+    SetPlayerNotReady = 'SetPlayerNotReady',
+    SetSelectedPlayer = 'SetSelectedPlayer'
 }
 
 export type PlayersReducerState = {
