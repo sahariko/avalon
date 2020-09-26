@@ -40,7 +40,7 @@ class Game {
             [player.username]: player
         };
 
-        if (player.canSeeEvil) {
+        if (player.canSeeEvil()) {
             this.evilPlayers.forEach((evilPlayer) => {
                 data[evilPlayer.username] = {
                     role: evilPlayer.role

@@ -1,4 +1,4 @@
-import Player, { PlayerMap } from '../../../../lib/Player';
+import Player, { PlayerData, PlayerMap } from '../../../../lib/Player';
 
 export enum Actions {
     SetPlayers = 'SetPlayers',
@@ -10,7 +10,7 @@ export enum Actions {
 }
 
 export type PlayersReducerState = {
-    [id: string]: Player
+    [id: string]: PlayerData
 };
 
 interface SetPlayersAction {

@@ -40,7 +40,8 @@ const Lobby = (): React.ReactElement => {
                 )}
                 <Button color={buttonColor}
                     size={Button.Sizes.Large}
-                    onClick={handleClick}>
+                    onClick={handleClick}
+                    className="start-game-button">
                     { buttonText }
                 </Button>
             </section>

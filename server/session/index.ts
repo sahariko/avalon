@@ -26,13 +26,23 @@ class Session {
     }
 
     get connectionsList() {
-        const users: {[id: string]: Partial<Connection>} = {};
+        const connections: {[id: string]: Partial<Connection>} = {};
 
         this.connections.forEach((connection) => {
-            users[connection.username] = connection.toObject();
+            connections[connection.username] = connection.toObject();
         });
 
-        return users;
+        return connections;
+    }
+
+    get readyToStart(): boolean {
+        const connections = Object.values(this.connectionsList);
+
+        if (connections.length < 5) {
+            return false;
+        }
+
+        return connections.every((connection: Partial<Connection>) => connection.ready);
     }
 
     userExists(username: string) {
