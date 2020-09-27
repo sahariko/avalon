@@ -12,6 +12,20 @@ class Game {
     questSelectorIndex: number;
     currentQuest: number;
 
+    static canAddSelectedPlayer({
+        currentQuest,
+        totalPlayerAmount,
+        selectedPlayersAmount
+    }: {
+        currentQuest: number,
+        totalPlayerAmount: number,
+        selectedPlayersAmount: number
+    }): boolean {
+        const maxAmount = QUEST_AMOUNT_PER_ROUND[currentQuest].get(totalPlayerAmount);
+
+        return selectedPlayersAmount < maxAmount;
+    }
+
     private initializePlayers(users: User[]): void {
         this.players = new Map();
 
@@ -58,9 +72,11 @@ class Game {
     }
 
     get canAddSelectedPlayer(): boolean {
-        const maxAmount = QUEST_AMOUNT_PER_ROUND[this.currentQuest].get(this.players.size);
-
-        return this.selectedPlayersAmount < maxAmount;
+        return Game.canAddSelectedPlayer({
+            currentQuest: this.currentQuest,
+            totalPlayerAmount: this.players.size,
+            selectedPlayersAmount: this.selectedPlayersAmount
+        });
     }
 
     getPlayer(username: string): Player {

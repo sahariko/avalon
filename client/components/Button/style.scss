@@ -31,11 +31,17 @@ button {
         background: lighten($grey, 28%);
     }
 
+    @include colorButton(pink, $pink);
+    @include colorButton(green, $green);
+    @include colorButton(red, $red);
+
     &.button-size-large {
         font-size: 20px;
     }
 
-    @include colorButton(pink, $pink);
-    @include colorButton(green, $green);
-    @include colorButton(red, $red);
+    &.disabled {
+        background: lighten($grey, 33%);
+        color: lighten($grey, 20%);
+        pointer-events: none;
+    }
 }

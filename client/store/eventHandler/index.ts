@@ -4,7 +4,7 @@ import Player from '../../../lib/Player';
 import { subscribe } from '../../events';
 import { setUser } from '../domains/user/actions';
 import { addPlayer, removePlayer, setPlayerNotReady, setPlayerReady, updatePlayersData } from '../domains/players/actions';
-import { abortGame, startGame } from '../domains/game/actions';
+import { abortGame, openQuestModal, startGame } from '../domains/game/actions';
 
 export const registerCallbacks = (store: Store): void => {
     subscribe(events.Server.UserLoggedIn, (player: Player) => {
@@ -44,5 +44,9 @@ export const registerCallbacks = (store: Store): void => {
         playerData
     }) => {
         store.dispatch(updatePlayersData(playerData));
+    });
+
+    subscribe(events.Server.StartQuest, () => {
+        store.dispatch(openQuestModal());
     });
 };

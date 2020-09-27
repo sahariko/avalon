@@ -7,6 +7,7 @@ type ButtonProps = {
     children: React.ReactNode;
     color?: string;
     size?: Sizes;
+    disabled?: boolean;
     className?: string;
     onClick?: (...args: any[]) => any; // eslint-disable-line @typescript-eslint/no-explicit-any
 };
@@ -15,13 +16,15 @@ const Button = ({
     color,
     children,
     size = Sizes.Medium,
+    disabled = false,
     className,
     onClick = () => null
 }: ButtonProps): React.ReactElement => {
     const classes = cn(
         `button-size-${size}`,
         {
-            [`button-color-${color}`]: color
+            [`button-color-${color}`]: color,
+            disabled
         },
         className
     );

@@ -6,6 +6,8 @@ export const init = (state: Partial<GameReducerState> = {}): GameReducerState =>
     phase: null,
     questSelectionQueue: [],
     questSelectorIndex: 0,
+    currentQuest: 0,
+    questModalOpen: false,
     ...state
 });
 
@@ -25,6 +27,16 @@ const reducer = (
             return {
                 ...state,
                 started: false
+            };
+        case Actions.OpenQuestModal:
+            return {
+                ...state,
+                questModalOpen: true
+            };
+        case Actions.CloseQuestModal:
+            return {
+                ...state,
+                questModalOpen: false
             };
         default:
             return state;

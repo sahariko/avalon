@@ -2,10 +2,14 @@ import { GameData } from '../../../../lib/Game/constants';
 
 export enum Actions {
     StartGame = 'StartGame',
-    AbortGame = 'AbortGame'
+    AbortGame = 'AbortGame',
+    OpenQuestModal = 'OpenQuestModal',
+    CloseQuestModal = 'CloseQuestModal'
 }
 
-export type GameReducerState = GameData;
+export type GameReducerState = GameData & {
+    questModalOpen: boolean
+};
 
 interface StartGameAction {
     type: Actions.StartGame;
@@ -16,4 +20,12 @@ export interface AbortGameAction {
     type: Actions.AbortGame;
 }
 
-export type GameActionTypes = StartGameAction | AbortGameAction;
+interface OpenQuestModalAction {
+    type: Actions.OpenQuestModal;
+}
+
+interface CloseQuestModalAction {
+    type: Actions.CloseQuestModal;
+}
+
+export type GameActionTypes = StartGameAction | AbortGameAction | OpenQuestModalAction | CloseQuestModalAction;

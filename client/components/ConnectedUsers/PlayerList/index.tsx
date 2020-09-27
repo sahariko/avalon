@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 import * as events from '../../../../lib/events';
 import { send } from '../../../events';
-import { questSelector } from '../../../store/domains/game/selectors';
+import { hasEnoughQuestMembers, questSelector } from '../../../store/domains/game/selectors';
 import { getPlayerData, getPlayersList } from '../../../store/domains/players/selectors';
 import Avatar, { AvatarProps } from '../../Avatar';
 import './style.scss';
@@ -11,12 +11,17 @@ const PlayerList = (): React.ReactElement => {
     const players = useSelector(getPlayersList);
     const { username } = useSelector(getPlayerData) || {};
     const questSelectorName = useSelector(questSelector);
+    const enoughQuestMembers = useSelector(hasEnoughQuestMembers);
 
     const handleSelection = (username: string) => {
         const { selected } = players.find((player) => player.username === username);
         const eventName = selected
             ? events.Client.UserUnselectedForQuest
             : events.Client.UserSelectedForQuest;
+
+        if (eventName === events.Client.UserSelectedForQuest && enoughQuestMembers) {
+            return;
+        }
 
         send(eventName, username);
     };

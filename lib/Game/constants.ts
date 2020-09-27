@@ -6,6 +6,7 @@ export interface GameData {
     started: boolean;
     questSelectionQueue: string[];
     questSelectorIndex: number;
+    currentQuest: number;
     phase: Phase;
 }
 

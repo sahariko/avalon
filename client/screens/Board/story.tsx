@@ -32,6 +32,22 @@ export const turnSelection = (): React.ReactElement => (
     </Provider>
 );
 
+export const questSelectionModal = (): React.ReactElement => (
+    <Provider store={mockStore({
+        players: mockPlayers(players),
+        user: 'בר',
+        game: {
+            phase: Phase.QuestSelection,
+            questSelectionQueue: players.map(({ username }) => username),
+            questSelectorIndex: 1,
+            started: true,
+            questModalOpen: true
+        }
+    })}>
+        <Board/>
+    </Provider>
+);
+
 export default {
     title: 'Screens/Board',
     component: Board

@@ -8,6 +8,9 @@ export const getPlayersList = (state: StoreState): PlayerData[] => Object.values
 
 export const getPlayersAmount = (state: StoreState): number => getPlayersList(state).length;
 
+export const getSelectedPlayers = (state: StoreState): PlayerData[] => getPlayersList(state)
+    .filter(({ selected }) => selected);
+
 export const getPlayerData = (state: StoreState): PlayerData => {
     if (!state.user) return null;
 

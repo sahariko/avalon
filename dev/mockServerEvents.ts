@@ -48,6 +48,9 @@ export const emit = (eventType: string, ...args: any[]): void => { // eslint-dis
                 }
             });
             break;
+        case Client.StartQuest:
+            execute(Server.StartQuest, ...args);
+            break;
         default:
             break;
     }

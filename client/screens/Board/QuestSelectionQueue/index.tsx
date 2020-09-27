@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { questSelectionQueue, questSelector } from '../../../store/domains/game/selectors';
 import './style.scss';
 
-const Board = (): React.ReactElement => {
+const QuestSelectionQueue = (): React.ReactElement => {
     const questSelectorName = useSelector(questSelector);
     const selectionQueue = useSelector(questSelectionQueue);
 
@@ -19,4 +19,4 @@ const Board = (): React.ReactElement => {
     );
 };
 
-export default Board;
+export default QuestSelectionQueue;
