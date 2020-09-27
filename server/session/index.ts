@@ -81,6 +81,10 @@ class Session {
     markConnectionReady(id: string, readyState = false): Partial<Connection> {
         const connection = this.getBySocketID(id);
 
+        if (!connection) {
+            return;
+        }
+
         connection.ready = readyState;
 
         return connection.toObject();

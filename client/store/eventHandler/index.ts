@@ -53,20 +53,15 @@ export const registerCallbacks = (store: Store): void => {
     });
 
     subscribe(events.Server.StartCompositionVoting, () => {
+        store.dispatch(clearCompositionVotesHistory());
         store.dispatch(openVoteModal());
     });
 
     subscribe(events.Server.CompositionVoted, ({
-        votes,
-        success
+        votes
     }) => {
         store.dispatch(closeVoteModal());
-
-        if (success) {
-            store.dispatch(clearCompositionVotesHistory());
-        } else {
-            store.dispatch(pushCompositionVotesHistory(votes));
-        }
+        store.dispatch(pushCompositionVotesHistory(votes));
     });
 
     subscribe(events.Server.QuestVoted, (tally: VotesTally) => {
