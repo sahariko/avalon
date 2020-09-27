@@ -1,10 +1,7 @@
 export enum Role {
     Good = 'good',
     Evil = 'evil',
-    Merlin = 'Merlin'
+    Merlin = 'Merlin',
+    Percival = 'Percival',
+    Morgana = 'Morgana'
 }
-
-export const CAN_SEE_EVIL_ROLES = new Set([
-    Role.Evil,
-    Role.Merlin
-]);

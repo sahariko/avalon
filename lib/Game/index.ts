@@ -1,6 +1,5 @@
 import User from '../User';
 import Player, { PlayerData, PlayerMap } from '../Player';
-import { Role } from '../Player/constants';
 import shuffle from '../shuffle';
 import generateRoleList from './generateRoleList';
 import {
@@ -11,6 +10,7 @@ import {
     VotesTally,
     QuestCompositionOptions, EndGameCodes
 } from './constants';
+import { Role } from '../Player/constants';
 
 class Game {
     private players: Map<string, Player>;
@@ -64,12 +64,24 @@ class Game {
         const evilPlayers: Player[] = [];
 
         this.players.forEach((player) => {
-            if (player.role === Role.Evil) {
+            if (Player.isEvil(player.role)) {
                 evilPlayers.push(player);
             }
         });
 
         return evilPlayers;
+    }
+
+    get merlins(): Player[] {
+        const merlins: Player[] = [];
+
+        this.players.forEach((player) => {
+            if (Player.looksLikeMerlin(player.role)) {
+                merlins.push(player);
+            }
+        });
+
+        return merlins;
     }
 
     get selectedPlayersAmount(): number {
@@ -195,6 +207,14 @@ class Game {
             this.evilPlayers.forEach((evilPlayer) => {
                 data[evilPlayer.username] = {
                     role: evilPlayer.role
+                };
+            });
+        }
+
+        if (player.canSeeMerlin()) {
+            this.merlins.forEach((merlin) => {
+                data[merlin.username] = {
+                    role: Role.Merlin
                 };
             });
         }

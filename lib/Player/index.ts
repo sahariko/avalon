@@ -1,5 +1,5 @@
 import User from '../User';
-import { Role, CAN_SEE_EVIL_ROLES } from './constants';
+import { Role } from './constants';
 
 export interface PlayerMap {
     [username: string]: Partial<Player>
@@ -19,7 +19,15 @@ class Player extends User {
 
     static isEvil(role: Role): boolean {
         return [
-            Role.Evil
+            Role.Evil,
+            Role.Morgana
+        ].includes(role);
+    }
+
+    static looksLikeMerlin(role: Role): boolean {
+        return [
+            Role.Merlin,
+            Role.Morgana
         ].includes(role);
     }
 
@@ -32,7 +40,17 @@ class Player extends User {
     }
 
     canSeeEvil(): boolean {
-        return CAN_SEE_EVIL_ROLES.has(this.role);
+        return [
+            Role.Evil,
+            Role.Merlin,
+            Role.Morgana
+        ].includes(this.role);
+    }
+
+    canSeeMerlin(): boolean {
+        return [
+            Role.Percival
+        ].includes(this.role);
     }
 }
 

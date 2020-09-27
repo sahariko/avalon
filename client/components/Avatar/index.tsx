@@ -5,6 +5,8 @@ import { Role } from '../../../lib/Player/constants';
 import knightIcon from '../../assets/icons/knight.svg';
 import evilIcon from '../../assets/icons/evil.svg';
 import merlinIcon from '../../assets/icons/merlin.svg';
+import morganaIcon from '../../assets/icons/morgana.svg';
+import percivalIcon from '../../assets/icons/percival.svg';
 import readyBannerIcon from '../../assets/icons/ready-banner.svg';
 import questSelectionBannerIcon from '../../assets/icons/quest-selection-banner.svg';
 import selectedForQuestIcon from '../../assets/icons/selected-for-quest.svg';
@@ -31,15 +33,18 @@ const Avatar = ({
     onClick
 }: AvatarProps): React.ReactElement => {
     const getIcon = () => {
-        if (role === Role.Evil) {
-            return evilIcon;
+        switch (role) {
+            case Role.Evil:
+                return evilIcon;
+            case Role.Merlin:
+                return merlinIcon;
+            case Role.Morgana:
+                return morganaIcon;
+            case Role.Percival:
+                return percivalIcon;
+            default:
+                return knightIcon;
         }
-
-        if (role === Role.Merlin) {
-            return merlinIcon;
-        }
-
-        return knightIcon;
     };
 
     const handleClick = () => {

@@ -2,7 +2,8 @@ import { Role } from '../../../lib/Player/constants';
 import { PLAYERS_TO_ROLES_MAP } from './constants';
 
 const generateSpecialRolesMap = () => new Map([
-    [Role.Good, [Role.Merlin]]
+    [Role.Good, [Role.Merlin, Role.Percival]],
+    [Role.Evil, [Role.Morgana]]
 ]);
 
 const generateRoleList = (playerAmount: number): Role[] => {
