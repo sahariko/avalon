@@ -1,10 +1,11 @@
 import { Store } from 'redux';
 import * as events from '../../../lib/events';
+import { VotesTally } from '../../../lib/Game/constants';
 import Player from '../../../lib/Player';
 import { subscribe } from '../../events';
 import { setUser } from '../domains/user/actions';
 import { addPlayer, removePlayer, setPlayerNotReady, setPlayerReady, updatePlayersData } from '../domains/players/actions';
-import { abortGame, openQuestModal, startGame } from '../domains/game/actions';
+import { abortGame, closeQuestModal, nextQuest, openQuestModal, startGame } from '../domains/game/actions';
 
 export const registerCallbacks = (store: Store): void => {
     subscribe(events.Server.UserLoggedIn, (player: Player) => {
@@ -48,5 +49,10 @@ export const registerCallbacks = (store: Store): void => {
 
     subscribe(events.Server.StartQuest, () => {
         store.dispatch(openQuestModal());
+    });
+
+    subscribe(events.Server.QuestVoted, (tally: VotesTally) => {
+        store.dispatch(closeQuestModal());
+        store.dispatch(nextQuest(tally));
     });
 };

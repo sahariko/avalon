@@ -3,14 +3,17 @@ import Player, { PlayerMap } from '../Player';
 import { Role } from '../Player/constants';
 import shuffle from '../shuffle';
 import generateRoleList from './generateRoleList';
-import { QUEST_AMOUNT_PER_ROUND } from './constants';
+import { QuestOptions, QUEST_AMOUNT_PER_ROUND, Votes, VotesTally } from './constants';
 
 class Game {
     private players: Map<string, Player>;
+    private failedQuestCount: number;
     started: boolean;
     questSelectionQueue: string[];
     questSelectorIndex: number;
     currentQuest: number;
+    questVotes: Votes;
+    votesHistory: VotesTally[];
 
     static canAddSelectedPlayer({
         currentQuest,
@@ -79,6 +82,33 @@ class Game {
         });
     }
 
+    get allQuestMembersVoted(): boolean {
+        return this.questVotes.size === this.selectedPlayersAmount;
+    }
+
+    submitQuest(): VotesTally {
+        const tally: VotesTally = {
+            success: 0,
+            fail: 0
+        };
+
+        this.questVotes.forEach((vote) => {
+            tally[vote]++;
+        });
+        this.currentQuest++;
+        this.votesHistory.push(tally);
+        this.questVotes.clear();
+        this.players.forEach((player) => {
+            player.selected = false;
+        });
+
+        if (tally.fail) {
+            this.failedQuestCount++;
+        }
+
+        return tally;
+    }
+
     getPlayer(username: string): Player {
         return this.players.get(username);
     }
@@ -111,9 +141,16 @@ class Game {
         return this.questSelectorIndex;
     }
 
+    updateVote(username: string, selected: QuestOptions): void {
+        this.questVotes.set(username, selected);
+    }
+
     start(users: User[]): void {
         this.started = true;
         this.currentQuest = 0;
+        this.failedQuestCount = 0;
+        this.questVotes = new Map();
+        this.votesHistory = [];
         this.initializePlayers(users);
         this.initializeSelectionQueue();
     }

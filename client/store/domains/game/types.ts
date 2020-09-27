@@ -1,17 +1,18 @@
-import { GameData } from '../../../../lib/Game/constants';
+import { GameData, VotesTally } from '../../../../lib/Game/constants';
 
 export enum Actions {
     StartGame = 'StartGame',
     AbortGame = 'AbortGame',
     OpenQuestModal = 'OpenQuestModal',
-    CloseQuestModal = 'CloseQuestModal'
+    CloseQuestModal = 'CloseQuestModal',
+    NextQuest = 'NextQuest'
 }
 
 export type GameReducerState = GameData & {
     questModalOpen: boolean
 };
 
-interface StartGameAction {
+export interface StartGameAction {
     type: Actions.StartGame;
     questSelectionQueue: string[];
 }
@@ -28,4 +29,9 @@ interface CloseQuestModalAction {
     type: Actions.CloseQuestModal;
 }
 
-export type GameActionTypes = StartGameAction | AbortGameAction | OpenQuestModalAction | CloseQuestModalAction;
+export interface NextQuestAction {
+    type: Actions.NextQuest,
+    votesTally: VotesTally
+}
+
+export type GameActionTypes = StartGameAction | AbortGameAction | OpenQuestModalAction | CloseQuestModalAction | NextQuestAction;

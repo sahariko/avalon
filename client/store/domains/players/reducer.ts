@@ -50,6 +50,18 @@ const reducer = (
                     ready: false
                 }
             };
+        case GameActions.StartGame: {
+            const newState = { ...state };
+
+            for (const username in newState) {
+                newState[username] = {
+                    ...newState[username],
+                    ready: false
+                }; // Make a copy
+            }
+
+            return newState;
+        }
         case GameActions.AbortGame: {
             const newState = { ...state };
 
@@ -58,7 +70,21 @@ const reducer = (
                     ...newState[username],
                     ready: false
                 }; // Make a copy
+
                 delete newState[username].role;
+            }
+
+            return newState;
+        }
+        case GameActions.NextQuest: {
+            const newState = { ...state };
+
+            for (const username in newState) {
+                newState[username] = {
+                    ...newState[username]
+                }; // Make a copy
+
+                delete newState[username].selected;
             }
 
             return newState;

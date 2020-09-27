@@ -1,6 +1,7 @@
 import Game from '../../../../lib/Game';
 import { StoreState } from '../..';
 import { getPlayersAmount, getSelectedPlayers } from '../players/selectors';
+import { VotesTally } from '../../../../lib/Game/constants';
 
 export const isGameStarted = (state: StoreState): boolean => state.game.started;
 
@@ -35,3 +36,5 @@ export const hasEnoughQuestMembers = (state: StoreState): boolean => (
 );
 
 export const showQuestModal = (state: StoreState): boolean => state.game.questModalOpen;
+
+export const getQuestHistory = (state: StoreState): VotesTally[] => state.game.votesHistory;

@@ -3,7 +3,6 @@ import { Provider } from 'react-redux';
 import { mockPlayers, mockStore } from '../../../dev/storybook';
 import Board from '.';
 import { Role } from '../../../lib/Player/constants';
-import { Phase } from '../../../lib/Game/constants';
 
 const players = [
     { username: 'אורי' },
@@ -22,7 +21,6 @@ export const turnSelection = (): React.ReactElement => (
         players: mockPlayers(players),
         user: 'בר',
         game: {
-            phase: Phase.QuestSelection,
             questSelectionQueue: players.map(({ username }) => username),
             questSelectorIndex: 1,
             started: true
@@ -37,11 +35,29 @@ export const questSelectionModal = (): React.ReactElement => (
         players: mockPlayers(players),
         user: 'בר',
         game: {
-            phase: Phase.QuestSelection,
             questSelectionQueue: players.map(({ username }) => username),
             questSelectorIndex: 1,
             started: true,
             questModalOpen: true
+        }
+    })}>
+        <Board/>
+    </Provider>
+);
+
+export const withVotingHistory = (): React.ReactElement => (
+    <Provider store={mockStore({
+        players: mockPlayers(players),
+        user: 'בר',
+        game: {
+            questSelectionQueue: players.map(({ username }) => username),
+            questSelectorIndex: 1,
+            started: true,
+            votesHistory: [
+                { fail: 1, success: 1 },
+                { fail: 2, success: 0 },
+                { fail: 0, success: 3 }
+            ]
         }
     })}>
         <Board/>

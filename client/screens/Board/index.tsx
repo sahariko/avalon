@@ -7,6 +7,7 @@ import { hasEnoughQuestMembers, isCurrentUserQuestSelector } from '../../store/d
 import { getSelectedPlayers } from '../../store/domains/players/selectors';
 import QuestSelectionQueue from './QuestSelectionQueue';
 import QuestModal from './QuestModal';
+import QuestHistory from './QuestHistory';
 import './style.scss';
 
 const Board = (): React.ReactElement => {
@@ -36,6 +37,8 @@ const Board = (): React.ReactElement => {
             </section>
             <section className="quest-selection flex-center col-sm-12 col-lg-6">
                 <h2>משימה מה?</h2>
+                <h3>משימות שהיו</h3>
+                <QuestHistory/>
                 <h3>סדר הרכבת המשימה</h3>
                 <QuestSelectionQueue/>
                 <Info>

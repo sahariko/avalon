@@ -1,5 +1,13 @@
-export enum Phase {
-    QuestSelection = 'QuestSelection'
+export enum QuestOptions {
+    Success = 'success',
+    Fail = 'fail'
+}
+
+export type Votes = Map<string, QuestOptions>;
+
+export interface VotesTally {
+    success: number;
+    fail: number;
 }
 
 export interface GameData {
@@ -7,7 +15,7 @@ export interface GameData {
     questSelectionQueue: string[];
     questSelectorIndex: number;
     currentQuest: number;
-    phase: Phase;
+    votesHistory: VotesTally[]
 }
 
 export const QUEST_AMOUNT_PER_ROUND = [

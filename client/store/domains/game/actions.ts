@@ -1,3 +1,4 @@
+import { VotesTally } from '../../../../lib/Game/constants';
 import { Actions, GameActionTypes } from './types';
 
 export const startGame = (questSelectionQueue: string[]): GameActionTypes => ({
@@ -15,4 +16,9 @@ export const openQuestModal = (): GameActionTypes => ({
 
 export const closeQuestModal = (): GameActionTypes => ({
     type: Actions.CloseQuestModal
+});
+
+export const nextQuest = (votesTally: VotesTally): GameActionTypes => ({
+    type: Actions.NextQuest,
+    votesTally
 });

@@ -6,12 +6,14 @@ type IconProps = {
     children: string;
     size?: number;
     className?: string;
+    onClick?: () => void;
 };
 
 const Icon = ({
     children,
     size = 16,
-    className
+    className,
+    onClick
 }: IconProps): React.ReactElement => {
     const classes = cn(
         'icon',
@@ -26,7 +28,8 @@ const Icon = ({
     return (
         <i className={classes}
             dangerouslySetInnerHTML={{ __html: children }}
-            style={style}/>
+            style={style}
+            onClick={onClick}/>
     );
 };
 

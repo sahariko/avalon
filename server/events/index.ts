@@ -1,6 +1,7 @@
 import game from '../game';
 import session from '../session';
 import * as events from '../../lib/events';
+import { PlayerData } from '../../lib/Player';
 
 let ioLayer: SocketIO.Server;
 
@@ -16,7 +17,6 @@ const disconnectUser = (socket: SocketIO.Socket) =>
 
 const handleSelection = (username: string, selected: boolean) => {
     game.getPlayer(username).selected = selected;
-    console.log('here');
 
     ioLayer.emit(events.Server.UpdateSelectedUsers, {
         playerData: {
@@ -85,6 +85,25 @@ const registerEvents = (socket: SocketIO.Socket) => {
 
     socket.on(events.Client.UserUnselectedForQuest, (username: string) => {
         handleSelection(username, false);
+    });
+
+    socket.on(events.Client.StartQuest, (players: PlayerData[]) => {
+        players.forEach(({ username }) => {
+            const connection = session.connections.get(username);
+
+            connection.emit(events.Server.StartQuest);
+        });
+    });
+
+    socket.on(events.Client.QuestSelected, ({
+        username,
+        selected
+    }) => {
+        game.updateVote(username, selected);
+
+        if (game.allQuestMembersVoted) {
+            ioLayer.emit(events.Server.QuestVoted, game.submitQuest());
+        }
     });
 };
 

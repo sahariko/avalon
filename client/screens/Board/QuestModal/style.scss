@@ -27,6 +27,9 @@
         margin-bottom: 45px;
 
         .icon {
+            box-sizing: content-box;
+            padding: 20px;
+            border-radius: 4px;
             margin-bottom: 20px;
             opacity: .75;
             transition: .3s;
@@ -35,6 +38,24 @@
             &:hover {
                 opacity: 1;
                 transform: translateY(-3px);
+            }
+        }
+
+        &.selected {
+            .icon {
+                opacity: 1;
+            }
+
+            &.selection-success {
+                .icon {
+                    background: lighten($blue, 10%);
+                }
+            }
+
+            &.selection-fail {
+                .icon {
+                    background: lighten($red, 10%);
+                }
             }
         }
     }

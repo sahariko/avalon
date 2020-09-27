@@ -1,3 +1,5 @@
 import { StoreState } from '../..';
 
-export const userExists = (state: StoreState): boolean => !!state.user;
+export const getUsername = (state: StoreState): string => state.user;
+
+export const userExists = (state: StoreState): boolean => !!getUsername(state);
