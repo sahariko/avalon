@@ -37,4 +37,6 @@ export const hasEnoughQuestMembers = (state: StoreState): boolean => (
 
 export const showQuestModal = (state: StoreState): boolean => state.game.questModalOpen;
 
+export const showVoteModal = (state: StoreState): boolean => state.game.voteModalOpen;
+
 export const getQuestHistory = (state: StoreState): VotesTally[] => state.game.votesHistory;

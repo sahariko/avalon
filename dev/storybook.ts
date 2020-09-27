@@ -20,10 +20,18 @@ export const roleSelectKnob = () => select( // eslint-disable-line
 );
 
 export const mockPlayers = (players: Partial<Player>[]): PlayersReducerState => (
-    players.reduce((acc: PlayersReducerState, { username, role }) => ({
-        ...acc,
-        [username]: new Player(new User(username), role)
-    }), {})
+    players.reduce((acc: PlayersReducerState, { username, role, ...rest }) => {
+        const player = new Player(new User(username), role);
+
+        console.log('rest:', rest);
+
+        Object.assign(player, rest);
+
+        return {
+            ...acc,
+            [username]: player
+        };
+    }, {})
 );
 
 export const mockStore = ({

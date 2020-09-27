@@ -7,6 +7,7 @@ import { hasEnoughQuestMembers, isCurrentUserQuestSelector } from '../../store/d
 import { getSelectedPlayers } from '../../store/domains/players/selectors';
 import QuestSelectionQueue from './QuestSelectionQueue';
 import QuestModal from './QuestModal';
+import VoteModal from './VoteModal';
 import QuestHistory from './QuestHistory';
 import './style.scss';
 
@@ -22,6 +23,7 @@ const Board = (): React.ReactElement => {
     return (
         <div className="screen board-screen row">
             <QuestModal/>
+            <VoteModal/>
             {showButton && (
                 <section className="flex-center col-sm-12">
                     <Button size={Button.Sizes.Large}

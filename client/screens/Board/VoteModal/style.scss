@@ -1,21 +1,26 @@
 @import '../../../assets/styles/colors';
 
-.quest-modal {
+.votes-modal {
+    width: 440px;
+
     h2 {
         margin-bottom: 45px;
     }
 
+    .selected-player-list {
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-bottom: 25px;
+    }
+
     .selection {
-        font-size: 20px;
         font-weight: 500;
         margin-bottom: 45px;
 
         .icon {
             box-sizing: content-box;
-            padding: 20px;
-            border-radius: 4px;
             margin-bottom: 20px;
-            opacity: .75;
+            opacity: .25;
             transition: .3s;
             cursor: pointer;
 
@@ -25,21 +30,19 @@
             }
         }
 
+        &.selection-no {
+            .icon {
+                transform: rotate(180deg) scaleX(-1) translateY(-15px);
+
+                &:hover {
+                    transform: rotate(180deg) scaleX(-1) translateY(-12px);
+                }
+            }
+        }
+
         &.selected {
             .icon {
                 opacity: 1;
-            }
-
-            &.selection-success {
-                .icon {
-                    background: lighten($blue, 10%);
-                }
-            }
-
-            &.selection-fail {
-                .icon {
-                    background: lighten($red, 10%);
-                }
             }
         }
     }

@@ -45,6 +45,26 @@ export const questSelectionModal = (): React.ReactElement => (
     </Provider>
 );
 
+export const voteModal = (): React.ReactElement => (
+    <Provider store={mockStore({
+        players: mockPlayers(
+            players.map((player) => ({
+                ...player,
+                selected: true
+            }))
+        ),
+        user: 'בר',
+        game: {
+            questSelectionQueue: players.map(({ username }) => username),
+            questSelectorIndex: 1,
+            started: true,
+            voteModalOpen: true
+        }
+    })}>
+        <Board/>
+    </Provider>
+);
+
 export const withVotingHistory = (): React.ReactElement => (
     <Provider store={mockStore({
         players: mockPlayers(players),
