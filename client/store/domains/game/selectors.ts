@@ -13,3 +13,5 @@ export const questSelector = (state: StoreState): string => {
 
     return questSelectionQueue[questSelectorIndex];
 };
+
+export const questSelectionQueue = (state: StoreState): string[] => state.game.questSelectionQueue;

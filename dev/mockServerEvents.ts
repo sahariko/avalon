@@ -27,6 +27,9 @@ export const emit = (eventType: string, ...args: any[]): void => { // eslint-dis
         case Client.UserNotReady:
             execute(Server.UserNotReady, ...args);
             break;
+        case Client.AbortGame:
+            execute(Server.GameAborted, ...args);
+            break;
         case Client.UserSelectedForQuest:
             execute(Server.UpdateSelectedUsers, {
                 playerData: {

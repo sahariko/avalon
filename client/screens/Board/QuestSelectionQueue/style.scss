@@ -1,0 +1,23 @@
+@import '../../../assets/styles/colors';
+
+.quest-selection-queue {
+    padding: 0;
+
+    li {
+        position: relative;
+        display: block;
+        margin-bottom: 8px;
+
+        &.highlight {
+            color: $pink;
+
+            &:before {
+                position: absolute;
+                top: 50%;
+                right: -3px;
+                transform: translate(100%, -50%);
+                content: '←';
+            }
+        }
+    }
+}

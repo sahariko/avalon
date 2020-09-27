@@ -4,7 +4,11 @@ import AbortGameButton from '.';
 import { mockStore } from '../../../dev/storybook';
 
 export const abortGameButton = (): React.ReactElement => (
-    <Provider store={mockStore()}>
+    <Provider store={mockStore({
+        game: {
+            started: true
+        }
+    })}>
         <AbortGameButton/>
     </Provider>
 );

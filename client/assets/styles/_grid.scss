@@ -1,0 +1,29 @@
+@mixin columns($breakpoint) {
+    @for $i from 1 through 12 {
+        $percent: percentage($i / 12);
+
+        .col-#{$breakpoint}-#{$i} {
+            flex-basis: $percent
+        }
+    }
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    [class*="col"] {
+        box-sizing: border-box;
+        flex: 0 0 auto;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    @include columns(sm);
+
+    @media only screen and (min-width: 960px) {
+        @include columns(lg);
+    }
+}
+

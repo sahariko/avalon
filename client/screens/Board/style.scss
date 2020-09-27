@@ -1,16 +1,9 @@
-.lobby-screen {
-    .start-game {
-        width: 60%;
-        max-width: 400px;
-        margin-bottom: 50px;
+.board-screen {
+    .quest-selection {
+        justify-content: flex-start;
 
-        .info-block,
-        .warning-block {
-            margin-bottom: 25px;
-        }
-
-        button {
-            font-weight: 500;
+        .info-block {
+            max-width: 400px;
         }
     }
 }
