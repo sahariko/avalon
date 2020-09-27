@@ -1,3 +1,4 @@
+import EndGameReason from '../../../../lib/EndGameReason';
 import { GameData, VotesTally } from '../../../../lib/Game/constants';
 import { PlayerMap } from '../../../../lib/Player';
 
@@ -15,7 +16,8 @@ export enum Actions {
 
 export type GameReducerState = GameData & {
     questModalOpen: boolean,
-    voteModalOpen: boolean
+    voteModalOpen: boolean,
+    endGameReason: EndGameReason
 };
 
 export interface StartGameAction {
@@ -25,6 +27,7 @@ export interface StartGameAction {
 
 export interface AbortGameAction {
     type: Actions.AbortGame;
+    reason: EndGameReason;
 }
 
 interface OpenQuestModalAction {

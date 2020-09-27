@@ -22,7 +22,7 @@ export const turnSelection = (): React.ReactElement => (
         user: 'בר',
         game: {
             questSelectionQueue: players.map(({ username }) => username),
-            questSelectorIndex: 1,
+            questSelectorIndex: 10,
             started: true
         }
     })}>

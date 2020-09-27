@@ -9,6 +9,7 @@ export const init = (state: Partial<GameReducerState> = {}): GameReducerState =>
     voteModalOpen: false,
     votesHistory: [],
     compositionVotesHistory: [],
+    endGameReason: null,
     ...state
 });
 
@@ -24,10 +25,9 @@ const reducer = (
                 questSelectionQueue: action.questSelectionQueue
             };
         case Actions.AbortGame:
-            return {
-                ...state,
-                started: false
-            };
+            return init({
+                endGameReason: action.reason
+            });
         case Actions.OpenQuestModal:
             return {
                 ...state,

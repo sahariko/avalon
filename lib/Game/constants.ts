@@ -10,6 +10,11 @@ export enum QuestCompositionOptions {
     No = 'no'
 }
 
+export enum EndGameCodes {
+    Win = 'win',
+    Lose = 'win'
+}
+
 export type QuestVotes = Map<string, QuestOptions>;
 
 export type QuestCompositionVotes = Map<string, QuestCompositionOptions>;

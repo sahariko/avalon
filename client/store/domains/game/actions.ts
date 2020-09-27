@@ -1,3 +1,4 @@
+import EndGameReason from '../../../../lib/EndGameReason';
 import { VotesTally } from '../../../../lib/Game/constants';
 import { PlayerMap } from '../../../../lib/Player';
 import { Actions, GameActionTypes } from './types';
@@ -7,8 +8,9 @@ export const startGame = (questSelectionQueue: string[]): GameActionTypes => ({
     questSelectionQueue
 });
 
-export const abortGame = (): GameActionTypes => ({
-    type: Actions.AbortGame
+export const abortGame = (reason: EndGameReason): GameActionTypes => ({
+    type: Actions.AbortGame,
+    reason
 });
 
 export const openQuestModal = (): GameActionTypes => ({

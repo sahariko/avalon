@@ -1,6 +1,7 @@
 import Game from '../../../../lib/Game';
 import { VotesTally } from '../../../../lib/Game/constants';
 import { PlayerMap } from '../../../../lib/Player';
+import EndGameReason from '../../../../lib/EndGameReason';
 import { StoreState } from '../..';
 import { getPlayersAmount, getSelectedPlayers } from '../players/selectors';
 
@@ -13,9 +14,13 @@ export const questSelector = (state: StoreState): string => {
         questSelectorIndex
     } = state.game;
 
+    const playersAmount = getPlayersAmount(state);
+
     if (!started) { return null; }
 
-    return questSelectionQueue[questSelectorIndex];
+    const index = questSelectorIndex % playersAmount;
+
+    return questSelectionQueue[index];
 };
 
 export const questSelectionQueue = (state: StoreState): string[] => state.game.questSelectionQueue;
@@ -43,3 +48,5 @@ export const showVoteModal = (state: StoreState): boolean => state.game.voteModa
 export const getQuestHistory = (state: StoreState): VotesTally[] => state.game.votesHistory;
 
 export const getQuestCompositionHistory = (state: StoreState): PlayerMap[] => state.game.compositionVotesHistory;
+
+export const terminateReason = (state: StoreState): EndGameReason => state.game.endGameReason;

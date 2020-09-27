@@ -72,6 +72,7 @@ const reducer = (
                 }; // Make a copy
 
                 delete newState[username].role;
+                delete newState[username].selected;
             }
 
             return newState;

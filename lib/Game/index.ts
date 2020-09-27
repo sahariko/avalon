@@ -9,7 +9,7 @@ import {
     QuestVotes,
     QuestCompositionVotes,
     VotesTally,
-    QuestCompositionOptions
+    QuestCompositionOptions, EndGameCodes
 } from './constants';
 
 class Game {
@@ -100,6 +100,21 @@ class Game {
         return this.questCompositionVotes.size === this.players.size;
     }
 
+    get gameEnded(): EndGameCodes.Lose {
+        if (
+            this.compositionVotesHistory.length >= 5 ||
+            this.failedQuestCount >= 3
+        ) {
+            return EndGameCodes.Lose;
+        }
+
+        if (this.votesHistory.length >= 5) {
+            return EndGameCodes.Win;
+        }
+
+        return null;
+    }
+
     submitCompositionVotes(): {
         votes: PlayerMap,
         success: boolean,
@@ -121,9 +136,15 @@ class Game {
         const success = yes > no;
         this.questCompositionVotes.clear();
         this.currentQuestMembers = [];
-        this.players.forEach((player) => {
-            player.selected = false;
-        });
+
+        if (success) {
+            this.compositionVotesHistory = [];
+        } else {
+            this.players.forEach((player) => {
+                player.selected = false;
+            });
+            this.compositionVotesHistory.push(votes);
+        }
 
         return {
             votes,
@@ -142,7 +163,7 @@ class Game {
             fail: 0
         };
 
-        this.questVotes.forEach((vote) => {
+        this.questVotes.forEach((vote: QuestOptions) => {
             tally[vote]++;
         });
         this.currentQuest++;
@@ -206,6 +227,7 @@ class Game {
         this.questVotes = new Map();
         this.questCompositionVotes = new Map();
         this.votesHistory = [];
+        this.currentQuestMembers = [];
         this.compositionVotesHistory = [];
         this.initializePlayers(users);
         this.initializeSelectionQueue();

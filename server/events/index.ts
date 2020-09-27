@@ -1,9 +1,16 @@
 import game from '../game';
 import session from '../session';
+import EndGameReason from '../../lib/EndGameReason';
 import * as events from '../../lib/events';
 import { PlayerData } from '../../lib/Player';
 
 let ioLayer: SocketIO.Server;
+
+const terminateSession = (reason: string) => {
+    session.setConnectionsReadyState(false);
+
+    ioLayer.emit(events.Server.GameAborted, reason);
+};
 
 const disconnectUser = (socket: SocketIO.Socket) =>
 {
@@ -13,6 +20,8 @@ const disconnectUser = (socket: SocketIO.Socket) =>
         session.remove(connection.username);
         ioLayer.emit(events.Server.UserLoggedOut, connection.toObject());
     }
+
+    terminateSession(EndGameReason.UserDisconnected);
 };
 
 const handleSelection = (username: string, selected: boolean) => {
@@ -72,9 +81,7 @@ const registerEvents = (socket: SocketIO.Socket) => {
     });
 
     socket.on(events.Client.AbortGame, () => {
-        session.setConnectionsReadyState(false);
-
-        ioLayer.emit(events.Server.GameAborted);
+        terminateSession(EndGameReason.GameAborted);
     });
 
     socket.on(events.Client.UserSelectedForQuest, (username: string) => {
@@ -111,6 +118,8 @@ const registerEvents = (socket: SocketIO.Socket) => {
 
                 connection.emit(events.Server.StartQuest);
             });
+        } else if (game.gameEnded) {
+            terminateSession(EndGameReason.CompositionVoteFailed);
         }
     });
 
@@ -121,7 +130,13 @@ const registerEvents = (socket: SocketIO.Socket) => {
         game.updateQuestVote(username, selected);
 
         if (game.allQuestMembersVoted) {
-            ioLayer.emit(events.Server.QuestVoted, game.submitQuest());
+            const result = game.submitQuest();
+
+            if (game.gameEnded) {
+                terminateSession(EndGameReason.QuestsFailed);
+            } else {
+                ioLayer.emit(events.Server.QuestVoted, result);
+            }
         }
     });
 };

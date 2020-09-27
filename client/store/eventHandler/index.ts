@@ -2,6 +2,7 @@ import { Store } from 'redux';
 import * as events from '../../../lib/events';
 import { VotesTally } from '../../../lib/Game/constants';
 import Player from '../../../lib/Player';
+import EndGameReason from '../../../lib/EndGameReason';
 import { subscribe } from '../../events';
 import { setUser } from '../domains/user/actions';
 import { addPlayer, removePlayer, setPlayerNotReady, setPlayerReady, updatePlayersData } from '../domains/players/actions';
@@ -29,8 +30,8 @@ export const registerCallbacks = (store: Store): void => {
         store.dispatch(updatePlayersData(playerData));
     });
 
-    subscribe(events.Server.GameAborted, () => {
-        store.dispatch(abortGame());
+    subscribe(events.Server.GameAborted, (reason: EndGameReason) => {
+        store.dispatch(abortGame(reason));
     });
 
     subscribe(events.Server.UserReady, (player: Player) => {
