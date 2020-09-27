@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 import classnames from 'classnames';
 import * as events from '../../../../lib/events';
-import { QuestOptions } from '../../../../lib/Game/constants';
+import { QuestCompositionOptions } from '../../../../lib/Game/constants';
 import { send } from '../../../events';
 import { showVoteModal } from '../../../store/domains/game/selectors';
 import { getUsername } from '../../../store/domains/user/selectors';
@@ -18,8 +18,6 @@ const VoteModal = (): React.ReactElement => {
     const username = useSelector(getUsername);
     const [selected, setSelected] = React.useState(null);
 
-    console.log('selectedPlayers:', selectedPlayers);
-
     React.useEffect(() => {
         setSelected(null);
     }, [show]);
@@ -29,18 +27,18 @@ const VoteModal = (): React.ReactElement => {
     }
 
     const handleSuccess = () => {
-        setSelected(QuestOptions.Success);
-        send(events.Client.QuestSelected, {
+        setSelected(QuestCompositionOptions.Yes);
+        send(events.Client.QuestCompositionSelected, {
             username,
-            selected: QuestOptions.Success
+            vote: QuestCompositionOptions.Yes
         });
     };
 
     const handleFail = () => {
-        setSelected(QuestOptions.Fail);
-        send(events.Client.QuestSelected, {
+        setSelected(QuestCompositionOptions.No);
+        send(events.Client.QuestCompositionSelected, {
             username,
-            selected: QuestOptions.Fail
+            vote: QuestCompositionOptions.No
         });
     };
 
@@ -48,7 +46,7 @@ const VoteModal = (): React.ReactElement => {
         BASE_SELECTION_CLASSES,
         'selection-yes',
         {
-            selected: selected === QuestOptions.Success
+            selected: selected === QuestCompositionOptions.Yes
         }
     );
 
@@ -56,7 +54,7 @@ const VoteModal = (): React.ReactElement => {
         BASE_SELECTION_CLASSES,
         'selection-no',
         {
-            selected: selected === QuestOptions.Fail
+            selected: selected === QuestCompositionOptions.No
         }
     );
 

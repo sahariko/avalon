@@ -7,7 +7,9 @@ export enum Client {
     UserSelectedForQuest = 'UserSelectedForQuest',
     UserUnselectedForQuest = 'UserUnselectedForQuest',
     StartQuest = 'StartQuest',
-    QuestSelected = 'QuestSelected'
+    QuestSelected = 'QuestSelected',
+    QuestCompositionSelected = 'QuestCompositionSelected',
+    StartCompositionVoting = 'StartCompositionVoting'
 }
 
 export enum Server {
@@ -21,5 +23,7 @@ export enum Server {
     UserNotReady = 'ServerUserNotReady',
     UpdateSelectedUsers = 'UpdateSelectedUsers',
     StartQuest = 'ServerStartQuest',
-    QuestVoted = 'QuestVoted'
+    QuestVoted = 'QuestVoted',
+    CompositionVoted = 'CompositionVoted',
+    StartCompositionVoting = 'ServerStartCompositionVoting'
 }

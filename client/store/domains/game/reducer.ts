@@ -8,6 +8,7 @@ export const init = (state: Partial<GameReducerState> = {}): GameReducerState =>
     questModalOpen: false,
     voteModalOpen: false,
     votesHistory: [],
+    compositionVotesHistory: [],
     ...state
 });
 
@@ -56,6 +57,20 @@ const reducer = (
                     ...state.votesHistory,
                     action.votesTally
                 ]
+            };
+        case Actions.PushCompositionVoteHistory:
+            return {
+                ...state,
+                compositionVotesHistory: [
+                    ...state.compositionVotesHistory,
+                    action.votes
+                ],
+                questSelectorIndex: state.questSelectorIndex + 1
+            };
+        case Actions.ClearCompositionVoteHistory:
+            return {
+                ...state,
+                compositionVotesHistory: []
             };
         default:
             return state;

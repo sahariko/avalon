@@ -1,7 +1,8 @@
 import Game from '../../../../lib/Game';
+import { VotesTally } from '../../../../lib/Game/constants';
+import { PlayerMap } from '../../../../lib/Player';
 import { StoreState } from '../..';
 import { getPlayersAmount, getSelectedPlayers } from '../players/selectors';
-import { VotesTally } from '../../../../lib/Game/constants';
 
 export const isGameStarted = (state: StoreState): boolean => state.game.started;
 
@@ -40,3 +41,5 @@ export const showQuestModal = (state: StoreState): boolean => state.game.questMo
 export const showVoteModal = (state: StoreState): boolean => state.game.voteModalOpen;
 
 export const getQuestHistory = (state: StoreState): VotesTally[] => state.game.votesHistory;
+
+export const getQuestCompositionHistory = (state: StoreState): PlayerMap[] => state.game.compositionVotesHistory;

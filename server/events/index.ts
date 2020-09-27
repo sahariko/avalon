@@ -87,19 +87,38 @@ const registerEvents = (socket: SocketIO.Socket) => {
         handleSelection(username, false);
     });
 
-    socket.on(events.Client.StartQuest, (players: PlayerData[]) => {
-        players.forEach(({ username }) => {
-            const connection = session.connections.get(username);
+    socket.on(events.Client.StartCompositionVoting, (players: PlayerData[]) => {
+        ioLayer.emit(events.Server.StartCompositionVoting);
 
-            connection.emit(events.Server.StartQuest);
-        });
+        game.setQuestMembers(players);
+    });
+
+    socket.on(events.Client.QuestCompositionSelected, ({
+        username,
+        vote
+    }) => {
+        game.updateQuestCompositionVote(username, vote);
+
+        if (!game.allVotedForComposition) { return; }
+
+        const result = game.submitCompositionVotes();
+
+        ioLayer.emit(events.Server.CompositionVoted, result);
+
+        if (result.success) {
+            result.selectedPlayers.forEach((username) => {
+                const connection = session.connections.get(username);
+
+                connection.emit(events.Server.StartQuest);
+            });
+        }
     });
 
     socket.on(events.Client.QuestSelected, ({
         username,
         selected
     }) => {
-        game.updateVote(username, selected);
+        game.updateQuestVote(username, selected);
 
         if (game.allQuestMembersVoted) {
             ioLayer.emit(events.Server.QuestVoted, game.submitQuest());

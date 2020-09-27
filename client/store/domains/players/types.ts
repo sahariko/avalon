@@ -1,5 +1,5 @@
 import Player, { PlayerData, PlayerMap } from '../../../../lib/Player';
-import { AbortGameAction, NextQuestAction, StartGameAction } from '../game/types';
+import { AbortGameAction, NextQuestAction, StartGameAction, PushCompositionVoteHistoryAction } from '../game/types';
 
 export enum Actions {
     SetPlayers = 'SetPlayers',
@@ -30,4 +30,4 @@ interface UpdatePlayersAction {
     players: PlayerMap;
 }
 
-export type PlayersActionTypes = SetPlayersAction | ChangePlayerAction | UpdatePlayersAction | AbortGameAction | NextQuestAction | StartGameAction;
+export type PlayersActionTypes = SetPlayersAction | ChangePlayerAction | UpdatePlayersAction | AbortGameAction | NextQuestAction | StartGameAction | PushCompositionVoteHistoryAction;

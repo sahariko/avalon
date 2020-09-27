@@ -1,9 +1,16 @@
 import User from '../User';
-import Player, { PlayerMap } from '../Player';
+import Player, { PlayerData, PlayerMap } from '../Player';
 import { Role } from '../Player/constants';
 import shuffle from '../shuffle';
 import generateRoleList from './generateRoleList';
-import { QuestOptions, QUEST_AMOUNT_PER_ROUND, Votes, VotesTally } from './constants';
+import {
+    QUEST_AMOUNT_PER_ROUND,
+    QuestOptions,
+    QuestVotes,
+    QuestCompositionVotes,
+    VotesTally,
+    QuestCompositionOptions
+} from './constants';
 
 class Game {
     private players: Map<string, Player>;
@@ -11,9 +18,12 @@ class Game {
     started: boolean;
     questSelectionQueue: string[];
     questSelectorIndex: number;
+    currentQuestMembers: string[];
     currentQuest: number;
-    questVotes: Votes;
+    questVotes: QuestVotes;
+    questCompositionVotes: QuestCompositionVotes;
     votesHistory: VotesTally[];
+    compositionVotesHistory: PlayerMap[];
 
     static canAddSelectedPlayer({
         currentQuest,
@@ -86,6 +96,46 @@ class Game {
         return this.questVotes.size === this.selectedPlayersAmount;
     }
 
+    get allVotedForComposition(): boolean {
+        return this.questCompositionVotes.size === this.players.size;
+    }
+
+    submitCompositionVotes(): {
+        votes: PlayerMap,
+        success: boolean,
+        selectedPlayers: string[]
+    } {
+        let yes = 0;
+        let no = 0;
+        const votes: PlayerMap = {};
+        const selectedPlayers = this.currentQuestMembers;
+
+        this.questCompositionVotes.forEach((vote, playerName) => {
+            vote === QuestCompositionOptions.Yes ? yes++ : no++;
+
+            Object.assign(votes, {
+                [playerName]: vote
+            });
+        });
+
+        const success = yes > no;
+        this.questCompositionVotes.clear();
+        this.currentQuestMembers = [];
+        this.players.forEach((player) => {
+            player.selected = false;
+        });
+
+        return {
+            votes,
+            success,
+            selectedPlayers
+        };
+    }
+
+    setQuestMembers(players: PlayerData[]): void {
+        this.currentQuestMembers = players.map(({ username }) => username);
+    }
+
     submitQuest(): VotesTally {
         const tally: VotesTally = {
             success: 0,
@@ -141,8 +191,12 @@ class Game {
         return this.questSelectorIndex;
     }
 
-    updateVote(username: string, selected: QuestOptions): void {
+    updateQuestVote(username: string, selected: QuestOptions): void {
         this.questVotes.set(username, selected);
+    }
+
+    updateQuestCompositionVote(username: string, vote: QuestCompositionOptions): void {
+        this.questCompositionVotes.set(username, vote);
     }
 
     start(users: User[]): void {
@@ -150,7 +204,9 @@ class Game {
         this.currentQuest = 0;
         this.failedQuestCount = 0;
         this.questVotes = new Map();
+        this.questCompositionVotes = new Map();
         this.votesHistory = [];
+        this.compositionVotesHistory = [];
         this.initializePlayers(users);
         this.initializeSelectionQueue();
     }

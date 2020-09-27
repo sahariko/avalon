@@ -76,6 +76,7 @@ const reducer = (
 
             return newState;
         }
+        case GameActions.PushCompositionVoteHistory:
         case GameActions.NextQuest: {
             const newState = { ...state };
 

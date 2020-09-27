@@ -5,7 +5,7 @@ import Player from '../../../lib/Player';
 import { subscribe } from '../../events';
 import { setUser } from '../domains/user/actions';
 import { addPlayer, removePlayer, setPlayerNotReady, setPlayerReady, updatePlayersData } from '../domains/players/actions';
-import { abortGame, closeQuestModal, nextQuest, openQuestModal, startGame } from '../domains/game/actions';
+import { abortGame, closeQuestModal, nextQuest, openQuestModal, startGame, closeVoteModal, openVoteModal, clearCompositionVotesHistory, pushCompositionVotesHistory } from '../domains/game/actions';
 
 export const registerCallbacks = (store: Store): void => {
     subscribe(events.Server.UserLoggedIn, (player: Player) => {
@@ -49,6 +49,23 @@ export const registerCallbacks = (store: Store): void => {
 
     subscribe(events.Server.StartQuest, () => {
         store.dispatch(openQuestModal());
+    });
+
+    subscribe(events.Server.StartCompositionVoting, () => {
+        store.dispatch(openVoteModal());
+    });
+
+    subscribe(events.Server.CompositionVoted, ({
+        votes,
+        success
+    }) => {
+        store.dispatch(closeVoteModal());
+
+        if (success) {
+            store.dispatch(clearCompositionVotesHistory());
+        } else {
+            store.dispatch(pushCompositionVotesHistory(votes));
+        }
     });
 
     subscribe(events.Server.QuestVoted, (tally: VotesTally) => {
