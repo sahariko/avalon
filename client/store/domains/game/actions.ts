@@ -34,6 +34,10 @@ export const nextQuest = (votesTally: VotesTally): GameActionTypes => ({
     votesTally
 });
 
+export const nextQuestSelector = (): GameActionTypes => ({
+    type: Actions.NextQuestSelector
+});
+
 export const pushCompositionVotesHistory = (votes: PlayerMap): GameActionTypes => ({
     type: Actions.PushCompositionVoteHistory,
     votes

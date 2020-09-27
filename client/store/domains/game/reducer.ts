@@ -51,7 +51,6 @@ const reducer = (
         case Actions.NextQuest:
             return {
                 ...state,
-                questSelectorIndex: state.questSelectorIndex + 1,
                 currentQuest: state.currentQuest + 1,
                 votesHistory: [
                     ...state.votesHistory,
@@ -64,7 +63,11 @@ const reducer = (
                 compositionVotesHistory: [
                     ...state.compositionVotesHistory,
                     action.votes
-                ],
+                ]
+            };
+        case Actions.NextQuestSelector:
+            return {
+                ...state,
                 questSelectorIndex: state.questSelectorIndex + 1
             };
         case Actions.ClearCompositionVoteHistory:

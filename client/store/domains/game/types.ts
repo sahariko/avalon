@@ -11,7 +11,8 @@ export enum Actions {
     CloseVoteModal = 'CloseVoteModal',
     NextQuest = 'NextQuest',
     ClearCompositionVoteHistory = 'ClearCompositionVoteHistory',
-    PushCompositionVoteHistory = 'PushCompositionVoteHistory'
+    PushCompositionVoteHistory = 'PushCompositionVoteHistory',
+    NextQuestSelector = 'NextQuestSelector'
 }
 
 export type GameReducerState = GameData & {
@@ -60,4 +61,8 @@ interface ClearCompositionVoteHistoryAction {
     type: Actions.ClearCompositionVoteHistory
 }
 
-export type GameActionTypes = StartGameAction | AbortGameAction | OpenQuestModalAction | CloseQuestModalAction | NextQuestAction | OpenVoteModalAction | CloseVoteModalAction | PushCompositionVoteHistoryAction | ClearCompositionVoteHistoryAction;
+interface NextQuestSelectorAction {
+    type: Actions.NextQuestSelector
+}
+
+export type GameActionTypes = StartGameAction | AbortGameAction | OpenQuestModalAction | CloseQuestModalAction | NextQuestAction | OpenVoteModalAction | CloseVoteModalAction | PushCompositionVoteHistoryAction | ClearCompositionVoteHistoryAction | NextQuestSelectorAction;

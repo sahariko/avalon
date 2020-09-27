@@ -6,7 +6,7 @@ import EndGameReason from '../../../lib/EndGameReason';
 import { subscribe } from '../../events';
 import { setUser } from '../domains/user/actions';
 import { addPlayer, removePlayer, setPlayerNotReady, setPlayerReady, updatePlayersData } from '../domains/players/actions';
-import { abortGame, closeQuestModal, nextQuest, openQuestModal, startGame, closeVoteModal, openVoteModal, clearCompositionVotesHistory, pushCompositionVotesHistory } from '../domains/game/actions';
+import { abortGame, closeQuestModal, nextQuest, openQuestModal, startGame, closeVoteModal, openVoteModal, clearCompositionVotesHistory, pushCompositionVotesHistory, nextQuestSelector } from '../domains/game/actions';
 
 export const registerCallbacks = (store: Store): void => {
     subscribe(events.Server.UserLoggedIn, (player: Player) => {
@@ -53,19 +53,25 @@ export const registerCallbacks = (store: Store): void => {
     });
 
     subscribe(events.Server.StartCompositionVoting, () => {
-        store.dispatch(clearCompositionVotesHistory());
         store.dispatch(openVoteModal());
     });
 
     subscribe(events.Server.CompositionVoted, ({
-        votes
+        votes,
+        success
     }) => {
         store.dispatch(closeVoteModal());
         store.dispatch(pushCompositionVotesHistory(votes));
+
+        if (!success) {
+            store.dispatch(nextQuestSelector());
+        }
     });
 
     subscribe(events.Server.QuestVoted, (tally: VotesTally) => {
         store.dispatch(closeQuestModal());
+        store.dispatch(clearCompositionVotesHistory());
+        store.dispatch(nextQuestSelector());
         store.dispatch(nextQuest(tally));
     });
 };
