@@ -25,7 +25,11 @@ const disconnectUser = (socket: SocketIO.Socket) =>
 };
 
 const handleSelection = (username: string, selected: boolean) => {
-    game.getPlayer(username).selected = selected;
+    const player = game.getPlayer(username);
+
+    if (player) {
+        player.selected = selected;
+    }
 
     ioLayer.emit(events.Server.UpdateSelectedUsers, {
         playerData: {
