@@ -1,9 +1,18 @@
+import { PlayerMap } from '../Player';
+
 export enum QuestOptions {
     Success = 'success',
     Fail = 'fail'
 }
 
-export type Votes = Map<string, QuestOptions>;
+export enum QuestCompositionOptions {
+    Yes = 'yes',
+    No = 'no'
+}
+
+export type QuestVotes = Map<string, QuestOptions>;
+
+export type QuestCompositionVotes = Map<string, QuestCompositionOptions>;
 
 export interface VotesTally {
     success: number;
@@ -15,7 +24,8 @@ export interface GameData {
     questSelectionQueue: string[];
     questSelectorIndex: number;
     currentQuest: number;
-    votesHistory: VotesTally[]
+    votesHistory: VotesTally[],
+    compositionVotesHistory: PlayerMap[]
 }
 
 export const QUEST_AMOUNT_PER_ROUND = [

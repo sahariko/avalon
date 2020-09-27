@@ -76,7 +76,41 @@ export const withVotingHistory = (): React.ReactElement => (
             votesHistory: [
                 { fail: 1, success: 1 },
                 { fail: 2, success: 0 },
-                { fail: 0, success: 3 }
+                { fail: 0, success: 3 },
+                { fail: 2, success: 3 },
+                { fail: 4, success: 1 }
+            ],
+            compositionVotesHistory: [
+                {
+                    'בר': 'yes',
+                    'סמי': 'no',
+                    'בנון': 'yes',
+                    'פיתוש': 'no',
+                    'נטע': 'yes',
+                    'סהר': 'no',
+                    'הדסי': 'yes',
+                    'אורי': 'no'
+                },
+                {
+                    'בר': 'yes',
+                    'סמי': 'no',
+                    'בנון': 'yes',
+                    'פיתוש': 'no',
+                    'נטע': 'yes',
+                    'סהר': 'no',
+                    'הדסי': 'yes',
+                    'אורי': 'no'
+                },
+                {
+                    'בר': 'yes',
+                    'סמי': 'no',
+                    'בנון': 'yes',
+                    'פיתוש': 'no',
+                    'נטע': 'yes',
+                    'סהר': 'no',
+                    'הדסי': 'yes',
+                    'אורי': 'no'
+                }
             ]
         }
     })}>

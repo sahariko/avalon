@@ -58,7 +58,7 @@ const QuestModal = (): React.ReactElement => {
     );
 
     return (
-        <Modal show={show} className="vote-modal">
+        <Modal show={show} className="quest-modal">
             <div className="row">
                 <div className="col-sm-12 flex-center">
                     <h2>מה אתה רוצה לעשות במשימה?</h2>

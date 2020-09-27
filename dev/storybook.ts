@@ -23,8 +23,6 @@ export const mockPlayers = (players: Partial<Player>[]): PlayersReducerState => 
     players.reduce((acc: PlayersReducerState, { username, role, ...rest }) => {
         const player = new Player(new User(username), role);
 
-        console.log('rest:', rest);
-
         Object.assign(player, rest);
 
         return {

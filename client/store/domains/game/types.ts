@@ -1,4 +1,5 @@
 import { GameData, VotesTally } from '../../../../lib/Game/constants';
+import { PlayerMap } from '../../../../lib/Player';
 
 export enum Actions {
     StartGame = 'StartGame',
@@ -7,7 +8,9 @@ export enum Actions {
     CloseQuestModal = 'CloseQuestModal',
     OpenVoteModal = 'OpenVoteModal',
     CloseVoteModal = 'CloseVoteModal',
-    NextQuest = 'NextQuest'
+    NextQuest = 'NextQuest',
+    ClearCompositionVoteHistory = 'ClearCompositionVoteHistory',
+    PushCompositionVoteHistory = 'PushCompositionVoteHistory'
 }
 
 export type GameReducerState = GameData & {
@@ -45,4 +48,13 @@ export interface NextQuestAction {
     votesTally: VotesTally
 }
 
-export type GameActionTypes = StartGameAction | AbortGameAction | OpenQuestModalAction | CloseQuestModalAction | NextQuestAction | OpenVoteModalAction | CloseVoteModalAction;
+interface PushCompositionVoteHistoryAction {
+    type: Actions.PushCompositionVoteHistory,
+    votes: PlayerMap
+}
+
+interface ClearCompositionVoteHistoryAction {
+    type: Actions.ClearCompositionVoteHistory
+}
+
+export type GameActionTypes = StartGameAction | AbortGameAction | OpenQuestModalAction | CloseQuestModalAction | NextQuestAction | OpenVoteModalAction | CloseVoteModalAction | PushCompositionVoteHistoryAction | ClearCompositionVoteHistoryAction;

@@ -9,6 +9,7 @@ import QuestSelectionQueue from './QuestSelectionQueue';
 import QuestModal from './QuestModal';
 import VoteModal from './VoteModal';
 import QuestHistory from './QuestHistory';
+import QuestCompositionHistory from './QuestCompositionHistory';
 import './style.scss';
 
 const Board = (): React.ReactElement => {
@@ -17,7 +18,7 @@ const Board = (): React.ReactElement => {
     const selectedPlayers = useSelector(getSelectedPlayers);
 
     const handleClick = () => {
-        send(events.Client.StartQuest, selectedPlayers);
+        send(events.Client.StartCompositionVoting, selectedPlayers);
     };
 
     return (
@@ -25,7 +26,7 @@ const Board = (): React.ReactElement => {
             <QuestModal/>
             <VoteModal/>
             {showButton && (
-                <section className="flex-center col-sm-12">
+                <section className="start-button-section flex-center col-sm-12">
                     <Button size={Button.Sizes.Large}
                         color="green"
                         onClick={handleClick}
@@ -37,17 +38,25 @@ const Board = (): React.ReactElement => {
             <section className="col-sm-12 col-lg-6">
                 <ConnectedUsers title="שחקנים"/>
             </section>
-            <section className="quest-selection flex-center col-sm-12 col-lg-6">
-                <h2>משימה מה?</h2>
-                <h3>משימות שהיו</h3>
-                <QuestHistory/>
-                <h3>סדר הרכבת המשימה</h3>
-                <QuestSelectionQueue/>
-                <Info>
-                    מי שמרכיב את המשימה מסומן עם כתר
-                    <br/>
-                    מי שנבחר למשימה מסומן עם דגל
-                </Info>
+            <section className="quest-selection col-sm-12 col-lg-6 row">
+                <h2 className="col-sm-12">משימה מה?</h2>
+                <div className="col-sm-12 col-md-5">
+                    <h3>משימות שהיו</h3>
+                    <QuestHistory/>
+                </div>
+                <div className="col-sm-12 col-md-7">
+                    <h3>הצבעות אחרונות</h3>
+                    <QuestCompositionHistory/>
+                </div>
+                <div className="col-sm-12 col-md-6">
+                    <h3>סדר הרכבת המשימה</h3>
+                    <QuestSelectionQueue/>
+                    <Info>
+                        מי שמרכיב את המשימה מסומן עם כתר
+                        <br/>
+                        מי שנבחר למשימה מסומן עם דגל
+                    </Info>
+                </div>
             </section>
         </div>
     );
